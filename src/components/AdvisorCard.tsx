@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, Share2, User } from "lucide-react";
+import { Calendar, Share2, User, Linkedin } from "lucide-react";
 import AdvisorProfile from './AdvisorProfile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -19,6 +19,7 @@ export interface AdvisorData {
   imageSrc: string;
   completionPercentage: number;
   bio: string;
+  linkedinUrl?: string;
 }
 
 interface AdvisorCardProps {
@@ -63,7 +64,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                       // If image fails to load, use a fallback from Unsplash
                       const target = e.target as HTMLImageElement;
                       target.onerror = null; // Prevent infinite loop
-                      target.src = `https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
+                      target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
                       setImageError(false);
                     }}
                     className={`w-full h-full object-cover object-center transition-all duration-500 z-5 ${!isActive ? 'silhouette-effect' : ''}`}
@@ -77,21 +78,33 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
           </Dialog>
         </div>
         
-        <div className="p-5 bg-white relative flex-grow flex flex-col justify-between">
+        <div className="p-5 bg-white relative flex-grow flex flex-col">
           <div className="absolute right-4 top-4">
-            <Avatar className="h-8 w-8 bg-advisorCard-neonGreen text-white">
-              <AvatarImage src="" alt="" />
-              <AvatarFallback className="text-xs font-medium">➚</AvatarFallback>
-            </Avatar>
+            {advisor.linkedinUrl ? (
+              <a 
+                href={advisor.linkedinUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="block h-8 w-8 rounded-full bg-advisorCard-neonGreen text-white flex items-center justify-center hover:bg-blue-600 transition-colors"
+                aria-label={`${advisor.name}'s LinkedIn profile`}
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+            ) : (
+              <Avatar className="h-8 w-8 bg-advisorCard-neonGreen text-white">
+                <AvatarImage src="" alt="" />
+                <AvatarFallback className="text-xs font-medium">➚</AvatarFallback>
+              </Avatar>
+            )}
           </div>
           
-          <div className="flex flex-col space-y-4">
-            <div>
+          <div className="flex flex-col h-full">
+            <div className="mb-4">
               <h3 className="font-semibold text-lg">{advisor.name}</h3>
               <p className="text-sm text-gray-600">{advisor.title}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-2 text-sm bg-gray-50 rounded-lg p-3">
+            <div className="grid grid-cols-2 gap-2 text-sm bg-gray-50 rounded-lg p-3 mb-4">
               <div>
                 <p className="text-gray-500 text-xs">Qualification</p>
                 <p className="font-medium">{advisor.qualification}</p>
@@ -102,7 +115,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               </div>
             </div>
 
-            <div className="space-y-1">
+            <div className="space-y-1 mb-auto">
               <div className="flex justify-between items-center text-sm text-gray-500">
                 <span>Data completion</span>
                 <span className="font-medium">{advisor.completionPercentage}%</span>
@@ -114,47 +127,49 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               />
             </div>
             
-            {isActive ? (
-              <div className="space-y-2">
-                <Button 
-                  className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center gap-2"
-                  size="sm"
-                >
-                  <Calendar className="h-4 w-4" />
-                  <span>Schedule Call</span>
-                </Button>
-                
-                <Button 
-                  className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
-                  size="sm"
-                >
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Share Data
-                </Button>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                <Button 
-                  className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed"
-                  size="sm"
-                  disabled
-                >
-                  <Calendar className="h-4 w-4 mr-2" />
-                  Schedule Call
-                </Button>
-                <p className="text-xs text-amber-600 text-center">
-                  {advisor.name.split(' ')[0]} needs more information
-                </p>
-                
-                <Button 
-                  className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
-                  size="sm"
-                >
-                  <Share2 className="h-4 w-4 mr-2" />
-                  Share Data
-                </Button>
-              </div>
-            )}
+            <div className="mt-4">
+              {isActive ? (
+                <div className="space-y-2">
+                  <Button 
+                    className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center gap-2"
+                    size="sm"
+                  >
+                    <Calendar className="h-4 w-4" />
+                    <span>Schedule Call</span>
+                  </Button>
+                  
+                  <Button 
+                    className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
+                    size="sm"
+                  >
+                    <Share2 className="h-4 w-4 mr-2" />
+                    Share Data
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Button 
+                    className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed"
+                    size="sm"
+                    disabled
+                  >
+                    <Calendar className="h-4 w-4 mr-2" />
+                    Schedule Call
+                  </Button>
+                  <p className="text-xs text-amber-600 text-center">
+                    {advisor.name.split(' ')[0]} needs more information
+                  </p>
+                  
+                  <Button 
+                    className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
+                    size="sm"
+                  >
+                    <Share2 className="h-4 w-4 mr-2" />
+                    Share Data
+                  </Button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

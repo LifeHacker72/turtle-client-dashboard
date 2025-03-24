@@ -3,7 +3,7 @@ import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User } from "lucide-react";
+import { User, Linkedin } from "lucide-react";
 
 interface AdvisorProfileProps {
   advisor: AdvisorData;
@@ -25,13 +25,26 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 // If image fails to load, use a fallback
                 const target = e.target as HTMLImageElement;
                 target.onerror = null; // Prevent infinite loop
-                target.src = `https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
+                target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
               }}
             />
           </div>
           
-          <div>
-            <DialogTitle className="text-xl font-semibold">{advisor.name}</DialogTitle>
+          <div className="flex-grow">
+            <div className="flex items-center justify-between">
+              <DialogTitle className="text-xl font-semibold">{advisor.name}</DialogTitle>
+              {advisor.linkedinUrl && (
+                <a 
+                  href={advisor.linkedinUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
+                  aria-label={`${advisor.name}'s LinkedIn profile`}
+                >
+                  <Linkedin className="h-4 w-4" />
+                </a>
+              )}
+            </div>
             <p className="text-sm text-gray-500">{advisor.title}</p>
             <div className="flex items-center mt-1">
               <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">
