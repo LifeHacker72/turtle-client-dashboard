@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, Share2 } from "lucide-react";
+import { Calendar, Share2, User } from "lucide-react";
 import AdvisorProfile from './AdvisorProfile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface AdvisorData {
   id: string;
@@ -25,6 +27,8 @@ interface AdvisorCardProps {
 
 const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const isActive = advisor.completionPercentage >= 50;
   const initials = advisor.name.split(' ').map(n => n[0]).join('');
   
@@ -42,16 +46,35 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative aspect-[1/1] bg-advisorCard-accent">
+        <div className="relative bg-advisorCard-accent">
           <Dialog>
             <DialogTrigger asChild>
-              <div className="cursor-pointer w-full h-full flex items-center justify-center relative">
-                <div className="absolute inset-0 bg-advisorCard-accent/60"></div>
-                <img 
-                  src={advisor.imageSrc} 
-                  alt={advisor.name}
-                  className={`w-full h-full object-cover object-center transition-all duration-500 ${!isActive ? 'silhouette-effect' : ''}`}
-                />
+              <div className="cursor-pointer w-full flex items-center justify-center relative">
+                <AspectRatio ratio={1 / 1} className="w-full h-full">
+                  <div className="absolute inset-0 bg-advisorCard-accent/60 z-10"></div>
+                  
+                  {!imageLoaded && !imageError && (
+                    <Skeleton className="absolute inset-0 z-0 bg-gray-200" />
+                  )}
+                  
+                  {imageError ? (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-20">
+                      <Avatar className="h-24 w-24 bg-gray-300 text-gray-500">
+                        <AvatarFallback className="text-2xl">
+                          <User className="h-12 w-12" />
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
+                  ) : (
+                    <img 
+                      src={advisor.imageSrc} 
+                      alt={advisor.name}
+                      onLoad={() => setImageLoaded(true)}
+                      onError={() => setImageError(true)}
+                      className={`w-full h-full object-cover object-center transition-all duration-500 z-5 ${!isActive ? 'silhouette-effect' : ''}`}
+                    />
+                  )}
+                </AspectRatio>
               </div>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
