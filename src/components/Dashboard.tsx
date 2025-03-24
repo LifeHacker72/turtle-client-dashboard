@@ -8,7 +8,7 @@ const advisors: AdvisorData[] = [
   {
     id: "1",
     name: "Sarah Johnson",
-    title: "Senior Financial Advisor",
+    title: "Financial Planner",
     specialty: "Financial Planning",
     qualification: "CFP®",
     experience: "12 Years",
@@ -41,7 +41,7 @@ const advisors: AdvisorData[] = [
   {
     id: "4",
     name: "James Wilson",
-    title: "Estate Planning Attorney",
+    title: "Estate Planner",
     specialty: "Estate Planning",
     qualification: "JD, LL.M",
     experience: "20 Years",
@@ -52,7 +52,7 @@ const advisors: AdvisorData[] = [
   {
     id: "5",
     name: "Olivia Martinez",
-    title: "Credit Specialist",
+    title: "Credit Advisor",
     specialty: "Credit Card",
     qualification: "FICO Pro",
     experience: "10 Years",
@@ -68,7 +68,8 @@ const Dashboard: React.FC = () => {
       <Header />
       
       <section className="mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        <h2 className="text-xl font-semibold mb-4">Your Advisory Team</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {advisors.map((advisor) => (
             <AdvisorCard key={advisor.id} advisor={advisor} />
           ))}

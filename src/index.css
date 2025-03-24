@@ -104,3 +104,10 @@
     -webkit-backdrop-filter: blur(10px);
   }
 }
+
+/* Add silhouette effect styles */
+@layer utilities {
+  .silhouette-effect {
+    @apply grayscale contrast-125 brightness-90;
+  }
+}

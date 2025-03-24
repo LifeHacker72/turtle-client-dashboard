@@ -36,7 +36,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative h-64 w-full bg-advisorCard-accent overflow-hidden">
+        <div className="relative h-48 w-full bg-advisorCard-accent overflow-hidden">
           <div 
             className={`absolute inset-0 bg-gradient-to-b from-transparent to-black/20 opacity-50 transition-opacity duration-300 ${isHovered ? 'opacity-70' : 'opacity-50'}`}
           />
@@ -44,10 +44,11 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
           <Dialog>
             <DialogTrigger asChild>
               <div className="cursor-pointer w-full h-full relative">
+                <div className="absolute inset-0 bg-black/10"></div>
                 <img 
                   src={advisor.imageSrc} 
                   alt={advisor.name}
-                  className={`w-full h-full object-cover object-center transition-all duration-500 ${!isActive ? 'grayscale-filter' : ''} ${isHovered ? 'scale-105' : 'scale-100'}`}
+                  className={`w-full h-full object-cover object-top transition-all duration-500 ${!isActive ? 'grayscale-filter contrast-125 brightness-90' : ''} ${isHovered ? 'scale-105' : 'scale-100'}`}
                 />
                 <div className="absolute bottom-0 left-0 w-full p-4 text-white bg-gradient-to-t from-black/70 to-transparent">
                   <div className="transition-transform duration-300 transform group-hover:translate-y-[-4px]">
