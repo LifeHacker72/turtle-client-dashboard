@@ -42,7 +42,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative aspect-[4/3] bg-advisorCard-accent">
+        <div className="relative aspect-[1/1] bg-advisorCard-accent">
           <Dialog>
             <DialogTrigger asChild>
               <div className="cursor-pointer w-full h-full flex items-center justify-center relative">
@@ -50,7 +50,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 <img 
                   src={advisor.imageSrc} 
                   alt={advisor.name}
-                  className={`w-full h-full object-cover object-top transition-all duration-500 ${!isActive ? 'silhouette-effect' : ''}`}
+                  className={`w-full h-full object-cover object-center transition-all duration-500 ${!isActive ? 'silhouette-effect' : ''}`}
                 />
               </div>
             </DialogTrigger>

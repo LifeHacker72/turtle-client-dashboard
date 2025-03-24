@@ -18,7 +18,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
             <img 
               src={advisor.imageSrc} 
               alt={advisor.name}
-              className={`w-full h-full object-cover ${!isActive ? 'grayscale-filter' : ''}`}
+              className={`w-full h-full object-cover object-center ${!isActive ? 'grayscale-filter' : ''}`}
             />
           </div>
           
