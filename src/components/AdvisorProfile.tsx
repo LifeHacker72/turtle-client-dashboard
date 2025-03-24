@@ -3,7 +3,7 @@ import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Linkedin, Calendar, Share2 } from "lucide-react";
+import { User, Linkedin, Calendar, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
@@ -108,7 +108,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
-                <Share2 className="h-4 w-4 mr-2" />
+                <Database className="h-4 w-4 mr-2" />
                 Add Data
               </Button>
             </>
@@ -127,7 +127,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
-                <Share2 className="h-4 w-4 mr-2" />
+                <Database className="h-4 w-4 mr-2" />
                 Add Data
               </Button>
             </>

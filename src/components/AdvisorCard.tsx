@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, Share2, User, Linkedin } from "lucide-react";
+import { Calendar, Database, User, Linkedin } from "lucide-react";
 import AdvisorProfile from './AdvisorProfile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -142,7 +142,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                     size="sm"
                   >
-                    <Share2 className="h-4 w-4 mr-2" />
+                    <Database className="h-4 w-4 mr-2" />
                     Add Data
                   </Button>
                 </div>
@@ -164,7 +164,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                     size="sm"
                   >
-                    <Share2 className="h-4 w-4 mr-2" />
+                    <Database className="h-4 w-4 mr-2" />
                     Add Data
                   </Button>
                 </div>
