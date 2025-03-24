@@ -88,7 +88,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 className="block h-8 w-8 rounded-full bg-[#0077B5] text-white flex items-center justify-center hover:bg-[#0369a1] transition-colors"
                 aria-label={`${advisor.name}'s LinkedIn profile`}
               >
-                <Linkedin className="h-4 w-4" />
+                <Linkedin className="h-4 w-4" fill="white" />
               </a>
             ) : (
               <Avatar className="h-8 w-8 bg-advisorCard-neonGreen text-white">
@@ -123,7 +123,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               <Progress 
                 value={advisor.completionPercentage} 
                 className="h-2" 
-                indicatorClassName={`${isActive ? 'bg-advisorCard-neonGreen' : 'bg-gray-400'}`}
+                indicatorClassName={`${isActive ? 'bg-[#2edfbf]' : 'bg-gray-400'}`}
               />
             </div>
             
@@ -143,11 +143,14 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     size="sm"
                   >
                     <Share2 className="h-4 w-4 mr-2" />
-                    Share Data
+                    Add Data
                   </Button>
                 </div>
               ) : (
                 <div className="space-y-2">
+                  <p className="text-xs text-amber-600 text-center">
+                    {advisor.name.split(' ')[0]} needs more information
+                  </p>
                   <Button 
                     className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed"
                     size="sm"
@@ -156,16 +159,13 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     <Calendar className="h-4 w-4 mr-2" />
                     Schedule Call
                   </Button>
-                  <p className="text-xs text-amber-600 text-center">
-                    {advisor.name.split(' ')[0]} needs more information
-                  </p>
                   
                   <Button 
                     className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                     size="sm"
                   >
                     <Share2 className="h-4 w-4 mr-2" />
-                    Share Data
+                    Add Data
                   </Button>
                 </div>
               )}
