@@ -81,18 +81,16 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               </div>
             </div>
 
-            <div className="hidden">
-              <div className="space-y-1">
-                <div className="flex justify-between items-center text-sm text-gray-500">
-                  <span>Data completion</span>
-                  <span className="font-medium">{advisor.completionPercentage}%</span>
-                </div>
-                <Progress 
-                  value={advisor.completionPercentage} 
-                  className="h-2" 
-                  indicatorClassName={`${isActive ? 'bg-advisorCard-neonGreen' : 'bg-gray-400'}`}
-                />
+            <div className="space-y-1">
+              <div className="flex justify-between items-center text-sm text-gray-500">
+                <span>Data completion</span>
+                <span className="font-medium">{advisor.completionPercentage}%</span>
               </div>
+              <Progress 
+                value={advisor.completionPercentage} 
+                className="h-2" 
+                indicatorClassName={`${isActive ? 'bg-advisorCard-neonGreen' : 'bg-gray-400'}`}
+              />
             </div>
             
             <div className="flex justify-center">
