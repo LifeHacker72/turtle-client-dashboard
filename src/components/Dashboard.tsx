@@ -76,41 +76,6 @@ const Dashboard: React.FC = () => {
             ))}
           </div>
         </section>
-        
-        <section className="mt-12">
-          <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">Your Financial Journey</h2>
-            <p className="text-gray-600">
-              Our team of experts is ready to guide you through every step of your financial journey. To get the most out of your advisory experience:
-            </p>
-            <ul className="mt-4 space-y-2">
-              <li className="flex items-start">
-                <span className="flex-shrink-0 h-5 w-5 rounded-full bg-advisorCard-neonGreen/20 flex items-center justify-center text-advisorCard-neonGreen mr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                <span className="text-gray-700">Complete your profile data for each advisory area</span>
-              </li>
-              <li className="flex items-start">
-                <span className="flex-shrink-0 h-5 w-5 rounded-full bg-advisorCard-neonGreen/20 flex items-center justify-center text-advisorCard-neonGreen mr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                <span className="text-gray-700">Schedule calls with your dedicated advisors</span>
-              </li>
-              <li className="flex items-start">
-                <span className="flex-shrink-0 h-5 w-5 rounded-full bg-advisorCard-neonGreen/20 flex items-center justify-center text-advisorCard-neonGreen mr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                </span>
-                <span className="text-gray-700">Unlock personalized advice by completing at least 50% of your data</span>
-              </li>
-            </ul>
-          </div>
-        </section>
       </div>
     </div>
   );
