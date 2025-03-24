@@ -127,7 +127,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                   />
                 </div>
                 
-                <div className="mt-3 md:mt-4" onClick={(e) => e.stopPropagation()}>
+                <div className="mt-3 md:mt-4">
                   {isActive ? (
                     <div className="space-y-2">
                       <Button 
@@ -148,11 +148,9 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      {!isMobile && (
-                        <p className="text-xs text-amber-600 text-center">
-                          {advisor.name.split(' ')[0]} needs more information
-                        </p>
-                      )}
+                      <p className="text-xs text-amber-600 text-center">
+                        {advisor.name.split(' ')[0]} needs more information
+                      </p>
                       <Button 
                         className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed text-xs md:text-sm h-8 md:h-9"
                         size={isMobile ? "sm" : "default"}

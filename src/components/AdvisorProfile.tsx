@@ -34,26 +34,24 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
           </div>
           
           <div className="flex-grow">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-1">
               <DialogTitle className="text-lg md:text-xl font-semibold">{advisor.name}</DialogTitle>
-              {advisor.linkedinUrl && (
-                <a 
-                  href={advisor.linkedinUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-[#0077B5] text-white hover:bg-[#0369a1] transition-colors"
-                  aria-label={`${advisor.name}'s LinkedIn profile`}
-                >
-                  <Linkedin className="h-3 w-3 md:h-4 md:w-4" fill="white" />
-                </a>
-              )}
             </div>
             <p className="text-xs md:text-sm text-gray-500">{advisor.title}</p>
-            <div className="flex items-center mt-1">
-              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">
-                {advisor.specialty} Advisor
-              </span>
-            </div>
+            <p className="text-xs md:text-sm text-gray-500 mt-1">
+              {advisor.specialty} Advisor
+            </p>
+            {advisor.linkedinUrl && (
+              <a 
+                href={advisor.linkedinUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-[#0077B5] text-white hover:bg-[#0369a1] transition-colors mt-2"
+                aria-label={`${advisor.name}'s LinkedIn profile`}
+              >
+                <Linkedin className="h-3 w-3 md:h-4 md:w-4" fill="white" />
+              </a>
+            )}
           </div>
         </div>
       </DialogHeader>
