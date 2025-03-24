@@ -51,29 +51,23 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
             <DialogTrigger asChild>
               <div className="cursor-pointer w-full flex items-center justify-center relative">
                 <AspectRatio ratio={1 / 1} className="w-full h-full">
-                  {/* Removed the yellow tinted overlay here */}
-                  
                   {!imageLoaded && !imageError && (
                     <Skeleton className="absolute inset-0 z-0 bg-gray-200" />
                   )}
                   
-                  {imageError ? (
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-20">
-                      <Avatar className="h-24 w-24 bg-gray-300 text-gray-500">
-                        <AvatarFallback className="text-2xl">
-                          <User className="h-12 w-12" />
-                        </AvatarFallback>
-                      </Avatar>
-                    </div>
-                  ) : (
-                    <img 
-                      src={advisor.imageSrc} 
-                      alt={advisor.name}
-                      onLoad={() => setImageLoaded(true)}
-                      onError={() => setImageError(true)}
-                      className={`w-full h-full object-cover object-center transition-all duration-500 z-5 ${!isActive ? 'silhouette-effect' : ''}`}
-                    />
-                  )}
+                  <img 
+                    src={advisor.imageSrc} 
+                    alt={advisor.name}
+                    onLoad={() => setImageLoaded(true)}
+                    onError={(e) => {
+                      // If image fails to load, use a fallback from Unsplash
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite loop
+                      target.src = `https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
+                      setImageError(false);
+                    }}
+                    className={`w-full h-full object-cover object-center transition-all duration-500 z-5 ${!isActive ? 'silhouette-effect' : ''}`}
+                  />
                 </AspectRatio>
               </div>
             </DialogTrigger>

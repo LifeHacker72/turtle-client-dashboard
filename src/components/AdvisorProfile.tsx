@@ -2,6 +2,8 @@
 import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { User } from "lucide-react";
 
 interface AdvisorProfileProps {
   advisor: AdvisorData;
@@ -19,6 +21,12 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
               src={advisor.imageSrc} 
               alt={advisor.name}
               className={`w-full h-full object-cover object-center ${!isActive ? 'grayscale-filter' : ''}`}
+              onError={(e) => {
+                // If image fails to load, use a fallback
+                const target = e.target as HTMLImageElement;
+                target.onerror = null; // Prevent infinite loop
+                target.src = `https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
+              }}
             />
           </div>
           
