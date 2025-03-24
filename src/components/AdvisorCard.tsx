@@ -85,7 +85,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 href={advisor.linkedinUrl} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="block h-8 w-8 rounded-full bg-advisorCard-neonGreen text-white flex items-center justify-center hover:bg-blue-600 transition-colors"
+                className="block h-8 w-8 rounded-full bg-[#0077B5] text-white flex items-center justify-center hover:bg-[#0369a1] transition-colors"
                 aria-label={`${advisor.name}'s LinkedIn profile`}
               >
                 <Linkedin className="h-4 w-4" />
