@@ -12,7 +12,7 @@ const advisors: AdvisorData[] = [
     specialty: "Financial Planning",
     qualification: "RIA",
     experience: "12 Years",
-    imageSrc: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 75,
     bio: "Priya is a Registered Investment Advisor with over 12 years of experience in comprehensive financial planning. She specializes in retirement planning, investment strategies, and helping clients achieve long-term financial goals."
   },
@@ -23,7 +23,7 @@ const advisors: AdvisorData[] = [
     specialty: "Tax",
     qualification: "CA",
     experience: "15 Years",
-    imageSrc: "https://images.unsplash.com/photo-1493962853295-0fd70327578a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 30,
     bio: "Rajesh is a Chartered Accountant with expertise in tax planning, compliance, and optimization strategies. He helps clients navigate complex tax regulations and maximize their tax efficiency."
   },
@@ -34,7 +34,7 @@ const advisors: AdvisorData[] = [
     specialty: "Insurance",
     qualification: "CLU®",
     experience: "8 Years",
-    imageSrc: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 15,
     bio: "Anjali is a Chartered Life Underwriter specializing in insurance planning, risk management, and protection strategies. She helps clients identify and address potential financial risks through appropriate insurance solutions."
   },
@@ -45,7 +45,7 @@ const advisors: AdvisorData[] = [
     specialty: "Estate Planning",
     qualification: "Advocate",
     experience: "20 Years",
-    imageSrc: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 55,
     bio: "Vikram is an experienced advocate specializing in estate planning, wills, trusts, and legacy planning. He helps clients protect their assets and ensure their wishes are carried out effectively."
   },
@@ -56,7 +56,7 @@ const advisors: AdvisorData[] = [
     specialty: "Credit Card",
     qualification: "FICO Pro",
     experience: "10 Years",
-    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 40,
     bio: "Meera specializes in credit card optimization, debt management, and credit card strategies. She helps clients improve their credit profiles and make strategic decisions about credit products."
   },
