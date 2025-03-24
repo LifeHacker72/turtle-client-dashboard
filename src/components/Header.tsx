@@ -18,9 +18,6 @@ const Header: React.FC = () => {
             alt="Turtle Logo" 
             className="h-12 md:h-14 hover:scale-105 transition-transform duration-300"
           />
-          <span className="ml-3 text-lg md:text-xl font-semibold text-primary hidden sm:block">
-            Client Advisory Tracker
-          </span>
         </div>
         
         <div className="flex items-center gap-6">
