@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
@@ -95,7 +96,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
           {isActive ? (
             <>
               <Button 
-                className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
+                className="flex-1 bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
                 <Calendar className="h-4 w-4 mr-2" />
@@ -103,7 +104,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
               </Button>
               
               <Button 
-                className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
+                className="flex-1 bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
                 <Pencil className="h-4 w-4 mr-2" />
@@ -122,7 +123,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
               </Button>
               
               <Button 
-                className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
+                className="flex-1 bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
                 <Pencil className="h-4 w-4 mr-2" />

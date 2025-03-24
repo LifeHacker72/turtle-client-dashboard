@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -37,19 +38,19 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       className="animate-slide-up"
       style={{ animationDelay: `${parseInt(advisor.id) * 100}ms` }}
     >
-      <div 
-        className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col ${
-          isHovered 
-            ? 'transform scale-105 shadow-[0_0_20px_#2edfbf] border-2 border-[#2edfbf]' 
-            : 'bg-advisorCard-background border border-transparent'
-        }`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="relative bg-gray-100">
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className="cursor-pointer w-full flex items-center justify-center relative">
+      <Dialog>
+        <DialogTrigger asChild>
+          <div 
+            className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer ${
+              isHovered 
+                ? 'transform scale-105 shadow-[0_0_20px_#2edfbf] border-2 border-[#2edfbf]' 
+                : 'bg-advisorCard-background border border-transparent'
+            }`}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <div className="relative bg-gray-100">
+              <div className="w-full flex items-center justify-center relative">
                 <AspectRatio ratio={1 / 1} className="w-full h-full">
                   {!imageLoaded && !imageError && (
                     <Skeleton className="absolute inset-0 z-0 bg-gray-200" />
@@ -69,108 +70,109 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                   />
                 </AspectRatio>
               </div>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
-              <AdvisorProfile advisor={advisor} />
-            </DialogContent>
-          </Dialog>
-        </div>
-        
-        <div className="p-5 bg-white relative flex-grow flex flex-col">
-          <div className="absolute right-4 top-4">
-            {advisor.linkedinUrl ? (
-              <a 
-                href={advisor.linkedinUrl} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="block h-8 w-8 rounded-full bg-[#0077B5] text-white flex items-center justify-center hover:bg-[#0369a1] transition-colors"
-                aria-label={`${advisor.name}'s LinkedIn profile`}
-              >
-                <Linkedin className="h-4 w-4" fill="white" />
-              </a>
-            ) : (
-              <Avatar className="h-8 w-8 bg-advisorCard-neonGreen text-white">
-                <AvatarImage src="" alt="" />
-                <AvatarFallback className="text-xs font-medium">➚</AvatarFallback>
-              </Avatar>
-            )}
-          </div>
-          
-          <div className="flex flex-col h-full">
-            <div className="mb-4">
-              <h3 className="font-semibold text-lg">{advisor.name}</h3>
-              <p className="text-sm text-gray-600">{advisor.title}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-2 text-sm bg-gray-50 rounded-lg p-3 mb-4">
-              <div>
-                <p className="text-gray-500 text-xs">Qualification</p>
-                <p className="font-medium">{advisor.qualification}</p>
+            <div className="p-5 bg-white relative flex-grow flex flex-col">
+              <div className="absolute right-4 top-4">
+                {advisor.linkedinUrl ? (
+                  <a 
+                    href={advisor.linkedinUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="block h-8 w-8 rounded-full bg-[#0077B5] text-white flex items-center justify-center hover:bg-[#0369a1] transition-colors"
+                    aria-label={`${advisor.name}'s LinkedIn profile`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Linkedin className="h-4 w-4" fill="white" />
+                  </a>
+                ) : (
+                  <Avatar className="h-8 w-8 bg-advisorCard-neonGreen text-white">
+                    <AvatarImage src="" alt="" />
+                    <AvatarFallback className="text-xs font-medium">➚</AvatarFallback>
+                  </Avatar>
+                )}
               </div>
-              <div>
-                <p className="text-gray-500 text-xs">Experience</p>
-                <p className="font-medium">{advisor.experience}</p>
-              </div>
-            </div>
+              
+              <div className="flex flex-col h-full">
+                <div className="mb-4">
+                  <h3 className="font-semibold text-lg">{advisor.name}</h3>
+                  <p className="text-sm text-gray-600">{advisor.title}</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-2 text-sm bg-gray-50 rounded-lg p-3 mb-4">
+                  <div>
+                    <p className="text-gray-500 text-xs">Qualification</p>
+                    <p className="font-medium">{advisor.qualification}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 text-xs">Experience</p>
+                    <p className="font-medium">{advisor.experience}</p>
+                  </div>
+                </div>
 
-            <div className="space-y-1 mb-auto">
-              <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>Data completion</span>
-                <span className="font-medium">{advisor.completionPercentage}%</span>
+                <div className="space-y-1 mb-auto">
+                  <div className="flex justify-between items-center text-sm text-gray-500">
+                    <span>Data completion</span>
+                    <span className="font-medium">{advisor.completionPercentage}%</span>
+                  </div>
+                  <Progress 
+                    value={advisor.completionPercentage} 
+                    className="h-2" 
+                    indicatorClassName={`${isActive ? 'bg-[#2edfbf]' : 'bg-gray-400'}`}
+                  />
+                </div>
+                
+                <div className="mt-4" onClick={(e) => e.stopPropagation()}>
+                  {isActive ? (
+                    <div className="space-y-2">
+                      <Button 
+                        className="w-full bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center gap-2"
+                        size="sm"
+                      >
+                        <Calendar className="h-4 w-4" />
+                        <span>Schedule Call</span>
+                      </Button>
+                      
+                      <Button 
+                        className="w-full bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300"
+                        size="sm"
+                      >
+                        <Pencil className="h-4 w-4 mr-2" />
+                        Add Data
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <p className="text-xs text-amber-600 text-center">
+                        {advisor.name.split(' ')[0]} needs more information
+                      </p>
+                      <Button 
+                        className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed"
+                        size="sm"
+                        disabled
+                      >
+                        <Calendar className="h-4 w-4 mr-2" />
+                        Schedule Call
+                      </Button>
+                      
+                      <Button 
+                        className="w-full bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300"
+                        size="sm"
+                      >
+                        <Pencil className="h-4 w-4 mr-2" />
+                        Add Data
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
-              <Progress 
-                value={advisor.completionPercentage} 
-                className="h-2" 
-                indicatorClassName={`${isActive ? 'bg-[#2edfbf]' : 'bg-gray-400'}`}
-              />
-            </div>
-            
-            <div className="mt-4">
-              {isActive ? (
-                <div className="space-y-2">
-                  <Button 
-                    className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center gap-2"
-                    size="sm"
-                  >
-                    <Calendar className="h-4 w-4" />
-                    <span>Schedule Call</span>
-                  </Button>
-                  
-                  <Button 
-                    className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
-                    size="sm"
-                  >
-                    <Pencil className="h-4 w-4 mr-2" />
-                    Add Data
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  <p className="text-xs text-amber-600 text-center">
-                    {advisor.name.split(' ')[0]} needs more information
-                  </p>
-                  <Button 
-                    className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed"
-                    size="sm"
-                    disabled
-                  >
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Schedule Call
-                  </Button>
-                  
-                  <Button 
-                    className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
-                    size="sm"
-                  >
-                    <Pencil className="h-4 w-4 mr-2" />
-                    Add Data
-                  </Button>
-                </div>
-              )}
             </div>
           </div>
-        </div>
-      </div>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <AdvisorProfile advisor={advisor} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
