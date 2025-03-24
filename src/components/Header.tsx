@@ -16,8 +16,11 @@ const Header: React.FC = () => {
           <img 
             src="/lovable-uploads/298bc0f1-29f9-48b1-ad63-ae1d9054c560.png" 
             alt="Turtle Logo" 
-            className="h-10"
+            className="h-12 md:h-14 hover:scale-105 transition-transform duration-300"
           />
+          <span className="ml-3 text-lg md:text-xl font-semibold text-primary hidden sm:block">
+            Client Advisory Tracker
+          </span>
         </div>
         
         <div className="flex items-center gap-6">
