@@ -95,11 +95,19 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
             
             <div className="flex justify-center">
               <Button 
-                className="w-full bg-black text-white hover:bg-black/90 transition-all duration-300 flex items-center justify-center gap-2"
+                className={`w-full text-white transition-all duration-300 flex items-center justify-center gap-2 ${
+                  isActive ? 'bg-black hover:bg-black/90' : 'bg-amber-500 hover:bg-amber-600'
+                }`}
                 size="sm"
               >
-                <Calendar className="h-4 w-4" />
-                <span>Schedule Call</span>
+                {isActive ? (
+                  <>
+                    <Calendar className="h-4 w-4" />
+                    <span>Schedule Call</span>
+                  </>
+                ) : (
+                  <span>{advisor.name.split(' ')[0]} needs more information to advise you</span>
+                )}
               </Button>
             </div>
           </div>
