@@ -64,8 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				advisorCard: {
-					background: '#f8f5ee',
-					accent: '#f2e6c2',
+					background: '#f4f1e4',
+					accent: '#f0e6b8',
+					neonGreen: '#a2d149'
 				},
 			},
 			borderRadius: {

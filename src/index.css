@@ -108,6 +108,6 @@
 /* Add silhouette effect styles */
 @layer utilities {
   .silhouette-effect {
-    @apply grayscale contrast-125 brightness-90;
+    @apply grayscale contrast-[1.4] brightness-[0.85];
   }
 }
