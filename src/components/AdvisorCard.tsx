@@ -93,23 +93,31 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               />
             </div>
             
-            <div className="flex justify-center">
-              <Button 
-                className={`w-full text-white transition-all duration-300 flex items-center justify-center gap-2 ${
-                  isActive ? 'bg-black hover:bg-black/90' : 'bg-amber-500 hover:bg-amber-600'
-                }`}
-                size="sm"
-              >
-                {isActive ? (
-                  <>
-                    <Calendar className="h-4 w-4" />
-                    <span>Schedule Call</span>
-                  </>
-                ) : (
-                  <span>{advisor.name.split(' ')[0]} needs more information to advise you</span>
-                )}
-              </Button>
-            </div>
+            {isActive ? (
+              <div className="flex justify-center">
+                <Button 
+                  className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center gap-2"
+                  size="sm"
+                >
+                  <Calendar className="h-4 w-4" />
+                  <span>Schedule Call</span>
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <Button 
+                  className="w-full bg-gray-200 text-gray-500 hover:bg-gray-300 transition-all duration-300 cursor-not-allowed"
+                  size="sm"
+                  disabled
+                >
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Schedule Call
+                </Button>
+                <p className="text-xs text-amber-600 text-center">
+                  {advisor.name.split(' ')[0]} needs more information
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
