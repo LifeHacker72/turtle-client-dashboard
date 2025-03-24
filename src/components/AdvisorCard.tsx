@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar, Database, User, Linkedin } from "lucide-react";
+import { Calendar, Pencil, User, Linkedin } from "lucide-react";
 import AdvisorProfile from './AdvisorProfile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -61,9 +60,8 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     alt={advisor.name}
                     onLoad={() => setImageLoaded(true)}
                     onError={(e) => {
-                      // If image fails to load, use a fallback from Unsplash
                       const target = e.target as HTMLImageElement;
-                      target.onerror = null; // Prevent infinite loop
+                      target.onerror = null;
                       target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
                       setImageError(false);
                     }}
@@ -142,7 +140,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                     size="sm"
                   >
-                    <Database className="h-4 w-4 mr-2" />
+                    <Pencil className="h-4 w-4 mr-2" />
                     Add Data
                   </Button>
                 </div>
@@ -164,7 +162,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                     className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                     size="sm"
                   >
-                    <Database className="h-4 w-4 mr-2" />
+                    <Pencil className="h-4 w-4 mr-2" />
                     Add Data
                   </Button>
                 </div>

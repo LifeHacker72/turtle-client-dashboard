@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { User, Linkedin, Calendar, Database } from "lucide-react";
+import { User, Linkedin, Calendar, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
@@ -24,9 +23,8 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
               alt={advisor.name}
               className={`w-full h-full object-cover object-center ${!isActive ? 'grayscale-filter' : ''}`}
               onError={(e) => {
-                // If image fails to load, use a fallback
                 const target = e.target as HTMLImageElement;
-                target.onerror = null; // Prevent infinite loop
+                target.onerror = null;
                 target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
               }}
             />
@@ -108,7 +106,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
-                <Database className="h-4 w-4 mr-2" />
+                <Pencil className="h-4 w-4 mr-2" />
                 Add Data
               </Button>
             </>
@@ -127,7 +125,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 className="flex-1 bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center"
                 size="sm"
               >
-                <Database className="h-4 w-4 mr-2" />
+                <Pencil className="h-4 w-4 mr-2" />
                 Add Data
               </Button>
             </>
