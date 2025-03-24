@@ -34,7 +34,7 @@ const advisors: AdvisorData[] = [
     specialty: "Insurance",
     qualification: "CLU®",
     experience: "8 Years",
-    imageSrc: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 15,
     bio: "Emily is a Chartered Life Underwriter specializing in insurance planning, risk management, and protection strategies. She helps clients identify and address potential financial risks through appropriate insurance solutions."
   },
@@ -56,7 +56,7 @@ const advisors: AdvisorData[] = [
     specialty: "Credit Card",
     qualification: "FICO Pro",
     experience: "10 Years",
-    imageSrc: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 40,
     bio: "Olivia specializes in credit optimization, debt management, and credit card strategies. She helps clients improve their credit profiles and make strategic decisions about credit products."
   },
