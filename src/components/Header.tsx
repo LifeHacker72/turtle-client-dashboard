@@ -2,23 +2,15 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { LogOut } from 'lucide-react';
-import { 
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle
-} from "@/components/ui/navigation-menu";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
 
 const Header: React.FC = () => {
   // This would come from your auth context in a real app
   const membershipExpiration = new Date('2024-12-31');
   
   return (
-    <header className="mb-8">
+    <header>
       <div className="flex justify-between items-center py-4">
         <div className="flex items-center">
           <img 
@@ -53,13 +45,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      <div className="flex flex-col space-y-2 mt-4">
-        <h1 className="text-3xl font-semibold tracking-tight">Financial Advisory Dashboard</h1>
-        <p className="text-gray-500">
-          Your personalized 360° financial advisory team, ready to guide you through every aspect of your financial journey.
-        </p>
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mt-2" />
-      </div>
+      <Separator className="my-4" />
     </header>
   );
 };
