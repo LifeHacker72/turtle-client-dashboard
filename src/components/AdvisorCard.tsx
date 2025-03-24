@@ -36,8 +36,8 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       <div 
         className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col ${
           isHovered 
-            ? 'transform scale-105 shadow-[0_0_15px_rgba(46,223,191,0.6)] bg-[#2edfbf]/10' 
-            : 'bg-advisorCard-background'
+            ? 'transform scale-105 shadow-[0_0_15px_#2edfbf] border border-[#2edfbf] bg-[#2edfbf]/10' 
+            : 'bg-advisorCard-background border border-transparent'
         }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
