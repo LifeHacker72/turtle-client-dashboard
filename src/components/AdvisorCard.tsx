@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar } from "lucide-react";
+import { Calendar, Share2 } from "lucide-react";
 import AdvisorProfile from './AdvisorProfile';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
@@ -34,7 +34,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       style={{ animationDelay: `${parseInt(advisor.id) * 100}ms` }}
     >
       <div 
-        className="rounded-xl overflow-hidden bg-advisorCard-background shadow-md transition-all duration-300 hover:shadow-lg"
+        className={`rounded-xl overflow-hidden bg-advisorCard-background shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col ${isHovered ? 'transform scale-105 shadow-[0_0_15px_rgba(46,223,191,0.6)]' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -56,7 +56,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
           </Dialog>
         </div>
         
-        <div className="p-5 bg-white relative">
+        <div className="p-5 bg-white relative flex-grow flex flex-col justify-between">
           <div className="absolute right-4 top-4">
             <Avatar className="h-8 w-8 bg-advisorCard-neonGreen text-white">
               <AvatarImage src="" alt="" />
@@ -94,13 +94,22 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
             </div>
             
             {isActive ? (
-              <div className="flex justify-center">
+              <div className="space-y-2">
                 <Button 
                   className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300 flex items-center justify-center gap-2"
                   size="sm"
                 >
                   <Calendar className="h-4 w-4" />
                   <span>Schedule Call</span>
+                </Button>
+                
+                <Button 
+                  variant="outline"
+                  className="w-full border-[#2edfbf] text-[#2edfbf] hover:bg-[#2edfbf]/10 transition-all duration-300"
+                  size="sm"
+                >
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Share Data
                 </Button>
               </div>
             ) : (
@@ -116,6 +125,15 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 <p className="text-xs text-amber-600 text-center">
                   {advisor.name.split(' ')[0]} needs more information
                 </p>
+                
+                <Button 
+                  variant="outline"
+                  className="w-full border-[#2edfbf] text-[#2edfbf] hover:bg-[#2edfbf]/10 transition-all duration-300"
+                  size="sm"
+                >
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Share Data
+                </Button>
               </div>
             )}
           </div>
