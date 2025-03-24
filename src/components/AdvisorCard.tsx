@@ -34,7 +34,11 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       style={{ animationDelay: `${parseInt(advisor.id) * 100}ms` }}
     >
       <div 
-        className={`rounded-xl overflow-hidden bg-advisorCard-background shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col ${isHovered ? 'transform scale-105 shadow-[0_0_15px_rgba(46,223,191,0.6)]' : ''}`}
+        className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col ${
+          isHovered 
+            ? 'transform scale-105 shadow-[0_0_15px_rgba(46,223,191,0.6)] bg-[#2edfbf]/10' 
+            : 'bg-advisorCard-background'
+        }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -104,8 +108,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 </Button>
                 
                 <Button 
-                  variant="outline"
-                  className="w-full border-[#2edfbf] text-[#2edfbf] hover:bg-[#2edfbf]/10 transition-all duration-300"
+                  className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                   size="sm"
                 >
                   <Share2 className="h-4 w-4 mr-2" />
@@ -127,8 +130,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 </p>
                 
                 <Button 
-                  variant="outline"
-                  className="w-full border-[#2edfbf] text-[#2edfbf] hover:bg-[#2edfbf]/10 transition-all duration-300"
+                  className="w-full bg-black hover:bg-black/90 text-white transition-all duration-300"
                   size="sm"
                 >
                   <Share2 className="h-4 w-4 mr-2" />
