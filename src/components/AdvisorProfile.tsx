@@ -38,9 +38,6 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
               <DialogTitle className="text-lg md:text-xl font-semibold">{advisor.name}</DialogTitle>
             </div>
             <p className="text-xs md:text-sm text-gray-500">{advisor.title}</p>
-            <p className="text-xs md:text-sm text-gray-500 mt-1">
-              {advisor.specialty} Advisor
-            </p>
             {advisor.linkedinUrl && (
               <a 
                 href={advisor.linkedinUrl} 
