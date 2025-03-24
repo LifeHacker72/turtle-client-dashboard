@@ -7,58 +7,58 @@ import { type AdvisorData } from './AdvisorCard';
 const advisors: AdvisorData[] = [
   {
     id: "1",
-    name: "Sarah Johnson",
+    name: "Priya Sharma",
     title: "Financial Planner",
     specialty: "Financial Planning",
-    qualification: "CFP®",
+    qualification: "RIA",
     experience: "12 Years",
-    imageSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 75,
-    bio: "Sarah is a Certified Financial Planner with over 12 years of experience in comprehensive financial planning. She specializes in retirement planning, investment strategies, and helping clients achieve long-term financial goals."
+    bio: "Priya is a Registered Investment Advisor with over 12 years of experience in comprehensive financial planning. She specializes in retirement planning, investment strategies, and helping clients achieve long-term financial goals."
   },
   {
     id: "2",
-    name: "Michael Chang",
+    name: "Rajesh Patel",
     title: "Tax Specialist",
     specialty: "Tax",
-    qualification: "CPA",
+    qualification: "CA",
     experience: "15 Years",
-    imageSrc: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1493962853295-0fd70327578a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 30,
-    bio: "Michael is a Certified Public Accountant with expertise in tax planning, compliance, and optimization strategies. He helps clients navigate complex tax regulations and maximize their tax efficiency."
+    bio: "Rajesh is a Chartered Accountant with expertise in tax planning, compliance, and optimization strategies. He helps clients navigate complex tax regulations and maximize their tax efficiency."
   },
   {
     id: "3",
-    name: "Emily Richards",
+    name: "Anjali Desai",
     title: "Insurance Consultant",
     specialty: "Insurance",
     qualification: "CLU®",
     experience: "8 Years",
-    imageSrc: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1466721591366-2d5fba72006d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 15,
-    bio: "Emily is a Chartered Life Underwriter specializing in insurance planning, risk management, and protection strategies. She helps clients identify and address potential financial risks through appropriate insurance solutions."
+    bio: "Anjali is a Chartered Life Underwriter specializing in insurance planning, risk management, and protection strategies. She helps clients identify and address potential financial risks through appropriate insurance solutions."
   },
   {
     id: "4",
-    name: "James Wilson",
+    name: "Vikram Singh",
     title: "Estate Planner",
     specialty: "Estate Planning",
-    qualification: "JD, LL.M",
+    qualification: "Advocate",
     experience: "20 Years",
-    imageSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1469041797191-50ace28483c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 55,
-    bio: "James is an experienced attorney specializing in estate planning, wills, trusts, and legacy planning. He helps clients protect their assets and ensure their wishes are carried out effectively."
+    bio: "Vikram is an experienced advocate specializing in estate planning, wills, trusts, and legacy planning. He helps clients protect their assets and ensure their wishes are carried out effectively."
   },
   {
     id: "5",
-    name: "Olivia Martinez",
-    title: "Credit Advisor",
+    name: "Meera Kapoor",
+    title: "Credit Card Advisor",
     specialty: "Credit Card",
     qualification: "FICO Pro",
     experience: "10 Years",
-    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d211c0a1f9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     completionPercentage: 40,
-    bio: "Olivia specializes in credit optimization, debt management, and credit card strategies. She helps clients improve their credit profiles and make strategic decisions about credit products."
+    bio: "Meera specializes in credit card optimization, debt management, and credit card strategies. She helps clients improve their credit profiles and make strategic decisions about credit products."
   },
 ];
 
