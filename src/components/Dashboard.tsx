@@ -3,6 +3,7 @@ import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { type AdvisorData } from './AdvisorCard';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const advisors: AdvisorData[] = [
   {
@@ -68,14 +69,16 @@ const advisors: AdvisorData[] = [
 ];
 
 const Dashboard: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8 sm:px-6 lg:px-8">
         <Header />
         
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Your Advisory Team</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <section className="mb-8 md:mb-12">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
             {advisors.map((advisor) => (
               <AdvisorCard key={advisor.id} advisor={advisor} />
             ))}
