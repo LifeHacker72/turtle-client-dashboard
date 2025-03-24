@@ -46,12 +46,12 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="relative bg-advisorCard-accent">
+        <div className="relative bg-gray-100">
           <Dialog>
             <DialogTrigger asChild>
               <div className="cursor-pointer w-full flex items-center justify-center relative">
                 <AspectRatio ratio={1 / 1} className="w-full h-full">
-                  <div className="absolute inset-0 bg-advisorCard-accent/60 z-10"></div>
+                  {/* Removed the yellow tinted overlay here */}
                   
                   {!imageLoaded && !imageError && (
                     <Skeleton className="absolute inset-0 z-0 bg-gray-200" />
