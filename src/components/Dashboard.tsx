@@ -4,6 +4,7 @@ import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { type AdvisorData } from './AdvisorCard';
 
+// Optimized image URLs (adding w=500&q=70 parameters for compression)
 const advisors: AdvisorData[] = [
   {
     id: "1",
@@ -12,7 +13,7 @@ const advisors: AdvisorData[] = [
     specialty: "Financial Planning",
     qualification: "RIA",
     experience: "12 Years",
-    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70",
     completionPercentage: 75,
     bio: "Priya is a Registered Investment Advisor with over 12 years of experience in comprehensive financial planning. She specializes in retirement planning, investment strategies, and helping clients achieve long-term financial goals.",
     linkedinUrl: "https://linkedin.com/in/priyasharma"
@@ -24,7 +25,7 @@ const advisors: AdvisorData[] = [
     specialty: "Tax",
     qualification: "CA",
     experience: "15 Years",
-    imageSrc: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70",
     completionPercentage: 30,
     bio: "Rajesh is a Chartered Accountant with expertise in tax planning, compliance, and optimization strategies. He helps clients navigate complex tax regulations and maximize their tax efficiency.",
     linkedinUrl: "https://linkedin.com/in/rajeshpatel"
@@ -36,7 +37,7 @@ const advisors: AdvisorData[] = [
     specialty: "Insurance",
     qualification: "CLU®",
     experience: "8 Years",
-    imageSrc: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70",
     completionPercentage: 15,
     bio: "Anjali is a Chartered Life Underwriter specializing in insurance planning, risk management, and protection strategies. She helps clients identify and address potential financial risks through appropriate insurance solutions.",
     linkedinUrl: "https://linkedin.com/in/anjalidesai"
@@ -48,7 +49,7 @@ const advisors: AdvisorData[] = [
     specialty: "Estate Planning",
     qualification: "Advocate",
     experience: "20 Years",
-    imageSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70",
     completionPercentage: 55,
     bio: "Vikram is an experienced advocate specializing in estate planning, wills, trusts, and legacy planning. He helps clients protect their assets and ensure their wishes are carried out effectively.",
     linkedinUrl: "https://linkedin.com/in/vikramsingh"
@@ -60,7 +61,7 @@ const advisors: AdvisorData[] = [
     specialty: "Credit Card",
     qualification: "FICO Pro",
     experience: "10 Years",
-    imageSrc: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70",
     completionPercentage: 40,
     bio: "Meera specializes in credit card optimization, debt management, and credit card strategies. She helps clients improve their credit profiles and make strategic decisions about credit products.",
     linkedinUrl: "https://linkedin.com/in/meerakapoor"

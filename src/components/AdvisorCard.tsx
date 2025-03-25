@@ -43,11 +43,13 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       >
         <div className="relative bg-gray-100">
           <AspectRatio ratio={1 / 1} className="w-full h-full">
-            <img 
-              src="/lovable-uploads/92fd3275-10f8-45d0-a84e-3072d46b0893.png" 
-              alt="Turtle Hotline"
-              className="w-full h-full object-contain p-2"
-            />
+            <div className="flex items-center justify-center w-full h-full p-4">
+              <img 
+                src="/lovable-uploads/92fd3275-10f8-45d0-a84e-3072d46b0893.png" 
+                alt="Turtle Hotline"
+                className="w-1/2 h-1/2 object-contain" // Scaled down by 50%
+              />
+            </div>
           </AspectRatio>
         </div>
         
@@ -97,18 +99,20 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                   <Skeleton className="absolute inset-0 z-0 bg-gray-200" />
                 )}
                 
-                <img 
-                  src={advisor.imageSrc} 
-                  alt={advisor.name}
-                  onLoad={() => setImageLoaded(true)}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
-                    setImageError(false);
-                  }}
-                  className={`w-full h-full object-cover object-center transition-all duration-500 z-5 ${!isActive ? 'silhouette-effect' : ''}`}
-                />
+                <div className="flex items-center justify-center w-full h-full">
+                  <img 
+                    src={advisor.imageSrc} 
+                    alt={advisor.name}
+                    onLoad={() => setImageLoaded(true)}
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70`;
+                      setImageError(false);
+                    }}
+                    className={`w-1/2 h-1/2 object-cover object-center transition-all duration-500 z-5 ${!isActive ? 'silhouette-effect' : ''}`} // Scaled down by 50%
+                  />
+                </div>
               </AspectRatio>
             </div>
             

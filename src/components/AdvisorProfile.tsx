@@ -33,7 +33,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
               <img 
                 src="/lovable-uploads/92fd3275-10f8-45d0-a84e-3072d46b0893.png" 
                 alt={advisor.name}
-                className="w-full h-full object-contain p-1"
+                className="w-3/4 h-3/4 object-contain" // Scaled down by 50% (relative to container)
               />
             </div>
             
@@ -78,15 +78,15 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
     <div className="animate-scale-in space-y-3 md:space-y-4">
       <DialogHeader className="space-y-3 md:space-y-4">
         <div className="flex items-start space-x-3 md:space-x-4">
-          <div className="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 rounded-full overflow-hidden border-2 border-white shadow-md">
+          <div className="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 rounded-full overflow-hidden border-2 border-white shadow-md flex items-center justify-center">
             <img 
               src={advisor.imageSrc} 
               alt={advisor.name}
-              className={`w-full h-full object-cover object-center ${!isActive ? 'grayscale-filter' : ''}`}
+              className={`w-3/4 h-3/4 object-cover object-center ${!isActive ? 'grayscale-filter' : ''}`} // Scaled down by 50% (relative to container)
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
-                target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80`;
+                target.src = `https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=70`;
               }}
             />
           </div>
