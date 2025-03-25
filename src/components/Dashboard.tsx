@@ -1,9 +1,8 @@
-
 import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { Button } from './ui/button';
-import { RefreshCw } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { type AdvisorData } from './AdvisorCard';
 
 const advisors: AdvisorData[] = [
@@ -84,7 +83,7 @@ const advisors: AdvisorData[] = [
 const Dashboard: React.FC = () => {
   const handleUpdateData = () => {
     // TODO: Implement data update logic
-    console.log('Updating advisor data...');
+    console.log('Inputting data...');
   };
 
   return (
@@ -104,11 +103,10 @@ const Dashboard: React.FC = () => {
         <div className="flex justify-center mt-6">
           <Button 
             onClick={handleUpdateData}
-            variant="outline"
-            className="flex items-center gap-2"
+            className="bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center text-xs md:text-sm h-8 md:h-9"
           >
-            <RefreshCw className="h-4 w-4" />
-            Update Data
+            <Pencil className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+            Input Data
           </Button>
         </div>
       </div>
