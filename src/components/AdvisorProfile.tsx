@@ -114,7 +114,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
       <div className="space-y-3 md:space-y-4">
         <div className="grid grid-cols-2 gap-2 md:gap-4">
           <div className="bg-gray-50 p-2 md:p-3 rounded-md">
-            <p className="text-xs md:text-sm text-gray-500">Qualification</p>
+            <p className="text-xs md:text-sm text-gray-500">Credentials</p>
             <p className="text-sm md:text-base font-semibold">{advisor.qualification}</p>
           </div>
           <div className="bg-gray-50 p-2 md:p-3 rounded-md">

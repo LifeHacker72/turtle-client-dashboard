@@ -121,7 +121,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
                 
                 <div className="grid grid-cols-2 gap-2 text-xs md:text-sm bg-gray-50 rounded-lg p-2 md:p-3">
                   <div>
-                    <p className="text-gray-500 text-xs">Qualification</p>
+                    <p className="text-gray-500 text-xs">Credentials</p>
                     <p className="font-medium">{advisor.qualification}</p>
                   </div>
                   <div>
