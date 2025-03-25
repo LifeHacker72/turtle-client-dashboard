@@ -116,6 +116,11 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
         </div>
         
         <div>
+          {!isActive && (
+            <p className="text-xs md:text-sm text-gray-500 mb-1 font-medium">
+              Just {Math.ceil((50 - advisor.completionPercentage) / 10)} minutes needed to complete
+            </p>
+          )}
           <div className="flex justify-between items-center text-xs md:text-sm text-gray-500 mb-1">
             <span>Data completion</span>
             <span className="font-medium">{advisor.completionPercentage}%</span>
