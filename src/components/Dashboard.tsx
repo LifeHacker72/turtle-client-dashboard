@@ -2,6 +2,8 @@
 import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
+import { Button } from './ui/button';
+import { RefreshCw } from 'lucide-react';
 import { type AdvisorData } from './AdvisorCard';
 
 const advisors: AdvisorData[] = [
@@ -80,6 +82,11 @@ const advisors: AdvisorData[] = [
 ];
 
 const Dashboard: React.FC = () => {
+  const handleUpdateData = () => {
+    // TODO: Implement data update logic
+    console.log('Updating advisor data...');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8 sm:px-6 lg:px-8">
@@ -93,6 +100,17 @@ const Dashboard: React.FC = () => {
             ))}
           </div>
         </section>
+
+        <div className="flex justify-center mt-6">
+          <Button 
+            onClick={handleUpdateData}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Update Data
+          </Button>
+        </div>
       </div>
     </div>
   );
