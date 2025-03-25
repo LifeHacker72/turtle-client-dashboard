@@ -1,9 +1,8 @@
-
 import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { Button } from './ui/button';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, Pencil } from 'lucide-react';
 import { type AdvisorData } from './AdvisorCard';
 
 const advisors: AdvisorData[] = [
@@ -104,10 +103,9 @@ const Dashboard: React.FC = () => {
         <div className="flex justify-center mt-6">
           <Button 
             onClick={handleUpdateData}
-            variant="outline"
-            className="flex items-center gap-2"
+            className="bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center gap-2 text-xs md:text-sm h-8 md:h-9"
           >
-            <RefreshCw className="h-4 w-4" />
+            <Pencil className="h-3 w-3 md:h-4 md:w-4" />
             Update Data
           </Button>
         </div>
