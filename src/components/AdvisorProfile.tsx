@@ -134,7 +134,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
         {!isActive && (
           <div className="bg-amber-50 border border-amber-200 rounded-md p-2 md:p-3">
             <p className="text-xs md:text-sm text-amber-800">
-              Please complete your data inputs to connect with {advisor.name.split(' ')[0]}.
+              {advisor.name} needs more information to be able to advise you.
             </p>
           </div>
         )}
@@ -155,7 +155,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 size={isMobile ? "sm" : "default"}
               >
                 <Pencil className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
-                Add Data
+                Input Data
               </Button>
             </>
           ) : (
@@ -174,7 +174,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
                 size={isMobile ? "sm" : "default"}
               >
                 <Pencil className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
-                Add Data
+                Input Data
               </Button>
             </>
           )}
