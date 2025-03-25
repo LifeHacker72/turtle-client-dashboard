@@ -126,7 +126,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
         {/* New boxed section for data completion */}
         <div className="bg-gray-50 p-3 md:p-4 rounded-md space-y-2">
           {!isActive && (
-            <p className="text-xs md:text-sm text-[#2edfbf] font-medium">
+            <p className="text-xs md:text-sm text-gray-600 font-medium">
               Just {Math.ceil((50 - advisor.completionPercentage) / 10)} minutes needed to complete
             </p>
           )}
@@ -137,7 +137,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
           <Progress 
             value={advisor.completionPercentage} 
             className="h-1.5 md:h-2" 
-            indicatorClassName={`${isActive ? 'bg-[#2edfbf]' : 'bg-gray-400'}`}
+            indicatorClassName={`${isActive ? 'bg-[#2edfbf]' : 'bg-[#ea384c]'}`}
           />
           <p className="text-xs text-gray-500 italic pt-1">Last updated on {formattedDate}</p>
         </div>
