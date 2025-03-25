@@ -35,37 +35,37 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
   if (advisor.isTurtleHotline) {
     return (
       <div 
-        className="animate-slide-up rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg flex flex-col cursor-pointer hover:transform hover:scale-105 hover:shadow-[0_0_20px_#2edfbf] hover:border-2 hover:border-[#2edfbf] bg-advisorCard-background border border-transparent h-full"
+        className="animate-slide-up rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer hover:transform hover:scale-105 hover:shadow-[0_0_20px_#2edfbf] hover:border-2 hover:border-[#2edfbf] bg-advisorCard-background border border-transparent"
         style={{ animationDelay: `${parseInt(advisor.id) * 100}ms` }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => window.open('tel:+18001234567', '_blank')}
       >
         <div className="relative bg-gray-100">
-          <AspectRatio ratio={1 / 1} className="w-full">
+          <AspectRatio ratio={1 / 1} className="w-full h-full">
             <img 
               src="/lovable-uploads/92fd3275-10f8-45d0-a84e-3072d46b0893.png" 
               alt="Turtle Hotline"
-              className="w-full h-full object-contain p-1"
+              className="w-full h-full object-contain p-2"
             />
           </AspectRatio>
         </div>
         
-        <div className="p-1 bg-white flex-grow flex flex-col">
+        <div className="p-3 md:p-5 bg-white flex-grow flex flex-col">
           <div className="flex flex-col h-full">
-            <div className="mb-0.5">
-              <h3 className="font-semibold text-xs truncate">{advisor.name}</h3>
-              <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
+            <div className="mb-2 md:mb-4">
+              <h3 className="font-semibold text-base md:text-lg truncate">{advisor.name}</h3>
+              <p className="text-xs md:text-sm text-gray-600 truncate">{advisor.title}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1">
+            <div className="grid grid-cols-2 gap-2 text-xs md:text-sm bg-gray-50 rounded-lg p-2 md:p-3">
               <div>
-                <p className="text-gray-500 text-[9px]">Availability</p>
-                <p className="font-medium text-[10px]">24/7</p>
+                <p className="text-gray-500 text-xs">Availability</p>
+                <p className="font-medium">24/7</p>
               </div>
               <div>
-                <p className="text-gray-500 text-[9px]">Response</p>
-                <p className="font-medium text-[10px]">Immediate</p>
+                <p className="text-gray-500 text-xs">Response</p>
+                <p className="font-medium">Immediate</p>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       <Dialog>
         <DialogTrigger asChild>
           <div 
-            className={`rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer ${
+            className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer ${
               isHovered 
                 ? 'transform scale-105 shadow-[0_0_20px_#2edfbf] border-2 border-[#2edfbf]' 
                 : 'bg-advisorCard-background border border-transparent'
@@ -92,7 +92,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
             onMouseLeave={() => setIsHovered(false)}
           >
             <div className="relative bg-gray-100">
-              <AspectRatio ratio={1 / 1} className="w-full">
+              <AspectRatio ratio={1 / 1} className="w-full h-full">
                 {!imageLoaded && !imageError && (
                   <Skeleton className="absolute inset-0 z-0 bg-gray-200" />
                 )}
@@ -112,21 +112,21 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               </AspectRatio>
             </div>
             
-            <div className="p-1 bg-white relative flex-grow flex flex-col">
+            <div className="p-3 md:p-5 bg-white relative flex-grow flex flex-col">
               <div className="flex flex-col h-full">
-                <div className="mb-0.5">
-                  <h3 className="font-semibold text-xs truncate">{advisor.name}</h3>
-                  <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
+                <div className="mb-2 md:mb-4">
+                  <h3 className="font-semibold text-base md:text-lg truncate">{advisor.name}</h3>
+                  <p className="text-xs md:text-sm text-gray-600 truncate">{advisor.title}</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1">
+                <div className="grid grid-cols-2 gap-2 text-xs md:text-sm bg-gray-50 rounded-lg p-2 md:p-3">
                   <div>
-                    <p className="text-gray-500 text-[9px]">Credentials</p>
-                    <p className="font-medium text-[10px]">{advisor.qualification}</p>
+                    <p className="text-gray-500 text-xs">Credentials</p>
+                    <p className="font-medium">{advisor.qualification}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-[9px]">Experience</p>
-                    <p className="font-medium text-[10px]">{advisor.experience}</p>
+                    <p className="text-gray-500 text-xs">Experience</p>
+                    <p className="font-medium">{advisor.experience}</p>
                   </div>
                 </div>
               </div>

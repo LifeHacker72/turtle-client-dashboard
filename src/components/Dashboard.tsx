@@ -81,13 +81,13 @@ const advisors: AdvisorData[] = [
 
 const Dashboard: React.FC = () => {
   return (
-    <div className="min-h-screen max-h-screen overflow-hidden bg-gray-50 flex flex-col">
-      <div className="w-full h-full mx-auto px-2 md:px-4 py-2 flex flex-col">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8 sm:px-6 lg:px-8">
         <Header />
         
-        <section className="flex-grow flex flex-col justify-center">
-          <h2 className="text-lg font-semibold mb-2 text-gray-800">Your Advisory Team</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mx-auto w-full max-w-5xl">
+        <section className="mb-8 md:mb-12">
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
             {advisors.map((advisor) => (
               <AdvisorCard key={advisor.id} advisor={advisor} />
             ))}
