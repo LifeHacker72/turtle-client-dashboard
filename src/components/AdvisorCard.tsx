@@ -96,7 +96,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor, isExpanded, onClick 
     <div 
       className={`
         animate-slide-up transition-all duration-500 ease-in-out
-        ${isExpanded ? 'absolute inset-0 z-50' : 'relative z-10'} 
+        ${isExpanded ? 'z-50' : 'relative z-10'} 
       `}
       style={{ 
         animationDelay: `${parseInt(advisor.id) * 100}ms`,
@@ -107,8 +107,17 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor, isExpanded, onClick 
           rounded-lg overflow-hidden shadow-md transition-all duration-500 
           h-full flex flex-col cursor-pointer
           ${isHovered && !isExpanded ? 'transform scale-105 shadow-[0_0_15px_#2edfbf] border border-[#2edfbf]' : 'bg-advisorCard-background border border-transparent'}
-          ${isExpanded ? 'fixed inset-0 md:inset-auto md:absolute md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2 md:w-[90%] md:max-w-md md:h-auto z-50 bg-white scale-100 shadow-xl' : ''}
+          ${isExpanded ? 'absolute z-50 bg-white scale-125 shadow-xl origin-center' : ''}
         `}
+        style={{
+          // When expanded, don't reposition but just scale from its current position
+          ...(isExpanded && {
+            transform: 'scale(1.25)',
+            maxHeight: isMobile ? '90vh' : '80vh',
+            overflow: 'auto',
+            width: isMobile ? 'calc(100vw - 2rem)' : '330px',
+          })
+        }}
         onMouseEnter={() => !isExpanded && setIsHovered(true)}
         onMouseLeave={() => !isExpanded && setIsHovered(false)}
         onClick={!isExpanded ? onClick : undefined}
@@ -307,3 +316,4 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor, isExpanded, onClick 
 };
 
 export default AdvisorCard;
+
