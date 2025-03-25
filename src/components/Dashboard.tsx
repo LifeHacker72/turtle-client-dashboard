@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
@@ -87,9 +88,11 @@ const Dashboard: React.FC = () => {
         <section className="mb-8 md:mb-12">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
             {advisors.map((advisor) => (
-              <AdvisorCard key={advisor.id} advisor={advisor} />
+              <div key={advisor.id} className="transform scale-60 origin-top-left w-[166%] h-[166%]">
+                <AdvisorCard key={advisor.id} advisor={advisor} />
+              </div>
             ))}
           </div>
         </section>
