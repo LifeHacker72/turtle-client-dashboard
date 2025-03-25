@@ -3,7 +3,6 @@ import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { type AdvisorData } from './AdvisorCard';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 const advisors: AdvisorData[] = [
   {
@@ -66,11 +65,21 @@ const advisors: AdvisorData[] = [
     bio: "Meera specializes in credit card optimization, debt management, and credit card strategies. She helps clients improve their credit profiles and make strategic decisions about credit products.",
     linkedinUrl: "https://linkedin.com/in/meerakapoor"
   },
+  {
+    id: "6",
+    name: "Turtle Hotline",
+    title: "24/7 Support",
+    specialty: "Customer Support",
+    qualification: "24/7",
+    experience: "Immediate",
+    imageSrc: "/lovable-uploads/92fd3275-10f8-45d0-a84e-3072d46b0893.png",
+    completionPercentage: 100,
+    bio: "Need immediate assistance? Our Turtle Hotline is available 24/7 to help with any questions or concerns you may have about your financial journey.",
+    isTurtleHotline: true
+  },
 ];
 
 const Dashboard: React.FC = () => {
-  const isMobile = useIsMobile();
-  
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8 sm:px-6 lg:px-8">
@@ -78,7 +87,7 @@ const Dashboard: React.FC = () => {
         
         <section className="mb-8 md:mb-12">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
             {advisors.map((advisor) => (
               <AdvisorCard key={advisor.id} advisor={advisor} />
             ))}
