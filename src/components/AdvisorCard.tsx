@@ -35,7 +35,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
   if (advisor.isTurtleHotline) {
     return (
       <div 
-        className="animate-slide-up rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer hover:transform hover:scale-105 hover:shadow-[0_0_20px_#2edfbf] hover:border-2 hover:border-[#2edfbf] bg-advisorCard-background border border-transparent"
+        className="animate-slide-up rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer hover:transform hover:scale-105 hover:shadow-[0_0_20px_#2edfbf] hover:border-2 hover:border-[#2edfbf] bg-advisorCard-background border border-transparent text-sm"
         style={{ animationDelay: `${parseInt(advisor.id) * 100}ms` }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
@@ -51,21 +51,21 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
           </AspectRatio>
         </div>
         
-        <div className="p-3 md:p-5 bg-white flex-grow flex flex-col">
+        <div className="p-2 md:p-3 bg-white flex-grow flex flex-col">
           <div className="flex flex-col h-full">
-            <div className="mb-2 md:mb-4">
-              <h3 className="font-semibold text-base md:text-lg truncate">{advisor.name}</h3>
-              <p className="text-xs md:text-sm text-gray-600 truncate">{advisor.title}</p>
+            <div className="mb-1 md:mb-2">
+              <h3 className="font-semibold text-sm md:text-base truncate">{advisor.name}</h3>
+              <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-2 text-xs md:text-sm bg-gray-50 rounded-lg p-2 md:p-3">
+            <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1 md:p-2">
               <div>
-                <p className="text-gray-500 text-xs">Availability</p>
-                <p className="font-medium">24/7</p>
+                <p className="text-gray-500 text-[0.6rem]">Availability</p>
+                <p className="font-medium text-xs">24/7</p>
               </div>
               <div>
-                <p className="text-gray-500 text-xs">Response</p>
-                <p className="font-medium">Immediate</p>
+                <p className="text-gray-500 text-[0.6rem]">Response</p>
+                <p className="font-medium text-xs">Immediate</p>
               </div>
             </div>
           </div>
@@ -83,7 +83,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
       <Dialog>
         <DialogTrigger asChild>
           <div 
-            className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer ${
+            className={`rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:shadow-lg h-full flex flex-col cursor-pointer text-sm ${
               isHovered 
                 ? 'transform scale-105 shadow-[0_0_20px_#2edfbf] border-2 border-[#2edfbf]' 
                 : 'bg-advisorCard-background border border-transparent'
@@ -112,21 +112,21 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
               </AspectRatio>
             </div>
             
-            <div className="p-3 md:p-5 bg-white relative flex-grow flex flex-col">
+            <div className="p-2 md:p-3 bg-white relative flex-grow flex flex-col">
               <div className="flex flex-col h-full">
-                <div className="mb-2 md:mb-4">
-                  <h3 className="font-semibold text-base md:text-lg truncate">{advisor.name}</h3>
-                  <p className="text-xs md:text-sm text-gray-600 truncate">{advisor.title}</p>
+                <div className="mb-1 md:mb-2">
+                  <h3 className="font-semibold text-sm md:text-base truncate">{advisor.name}</h3>
+                  <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-2 text-xs md:text-sm bg-gray-50 rounded-lg p-2 md:p-3">
+                <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1 md:p-2">
                   <div>
-                    <p className="text-gray-500 text-xs">Credentials</p>
-                    <p className="font-medium">{advisor.qualification}</p>
+                    <p className="text-gray-500 text-[0.6rem]">Credentials</p>
+                    <p className="font-medium text-xs">{advisor.qualification}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-xs">Experience</p>
-                    <p className="font-medium">{advisor.experience}</p>
+                    <p className="text-gray-500 text-[0.6rem]">Experience</p>
+                    <p className="font-medium text-xs">{advisor.experience}</p>
                   </div>
                 </div>
               </div>
