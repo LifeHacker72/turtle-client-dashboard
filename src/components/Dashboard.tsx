@@ -1,4 +1,3 @@
-
 import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
@@ -88,15 +87,10 @@ const Dashboard: React.FC = () => {
         <section className="mb-8 md:mb-12">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
           
-          {/* Single row horizontal scroll container */}
-          <div className="relative overflow-x-auto pb-4">
-            <div className="flex space-x-4 min-w-max">
-              {advisors.map((advisor) => (
-                <div key={advisor.id} className="w-[220px] flex-shrink-0">
-                  <AdvisorCard advisor={advisor} />
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+            {advisors.map((advisor) => (
+              <AdvisorCard key={advisor.id} advisor={advisor} />
+            ))}
           </div>
         </section>
       </div>
