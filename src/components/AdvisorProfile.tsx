@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
@@ -117,7 +116,7 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
         
         <div>
           {!isActive && (
-            <p className="text-xs md:text-sm text-gray-500 mb-1 font-medium">
+            <p className="text-xs md:text-sm text-[#2edfbf] mb-1 font-medium">
               Just {Math.ceil((50 - advisor.completionPercentage) / 10)} minutes needed to complete
             </p>
           )}
