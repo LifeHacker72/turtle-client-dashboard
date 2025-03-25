@@ -54,18 +54,18 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
         <div className="p-1 bg-white flex-grow flex flex-col">
           <div className="flex flex-col h-full">
             <div className="mb-0.5">
-              <h3 className="font-semibold text-xs truncate">{advisor.name}</h3>
-              <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
+              <h3 className="font-semibold text-[10px] sm:text-xs truncate">{advisor.name}</h3>
+              <p className="text-[9px] sm:text-xs text-gray-600 truncate">{advisor.title}</p>
             </div>
             
-            <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1">
+            <div className="grid grid-cols-2 gap-1 text-[9px] sm:text-xs bg-gray-50 rounded-lg p-1">
               <div>
-                <p className="text-gray-500 text-[9px]">Availability</p>
-                <p className="font-medium text-[10px]">24/7</p>
+                <p className="text-gray-500 text-[8px] sm:text-[9px]">Availability</p>
+                <p className="font-medium text-[9px] sm:text-[10px]">24/7</p>
               </div>
               <div>
-                <p className="text-gray-500 text-[9px]">Response</p>
-                <p className="font-medium text-[10px]">Immediate</p>
+                <p className="text-gray-500 text-[8px] sm:text-[9px]">Response</p>
+                <p className="font-medium text-[9px] sm:text-[10px]">Immediate</p>
               </div>
             </div>
           </div>
@@ -77,7 +77,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
   // Regular advisor cards
   return (
     <div 
-      className="animate-slide-up"
+      className="animate-slide-up h-full"
       style={{ animationDelay: `${parseInt(advisor.id) * 100}ms` }}
     >
       <Dialog>
@@ -115,18 +115,18 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
             <div className="p-1 bg-white relative flex-grow flex flex-col">
               <div className="flex flex-col h-full">
                 <div className="mb-0.5">
-                  <h3 className="font-semibold text-xs truncate">{advisor.name}</h3>
-                  <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
+                  <h3 className="font-semibold text-[10px] sm:text-xs truncate">{advisor.name}</h3>
+                  <p className="text-[9px] sm:text-xs text-gray-600 truncate">{advisor.title}</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1">
+                <div className="grid grid-cols-2 gap-1 text-[9px] sm:text-xs bg-gray-50 rounded-lg p-1">
                   <div>
-                    <p className="text-gray-500 text-[9px]">Credentials</p>
-                    <p className="font-medium text-[10px]">{advisor.qualification}</p>
+                    <p className="text-gray-500 text-[8px] sm:text-[9px]">Credentials</p>
+                    <p className="font-medium text-[9px] sm:text-[10px]">{advisor.qualification}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-[9px]">Experience</p>
-                    <p className="font-medium text-[10px]">{advisor.experience}</p>
+                    <p className="text-gray-500 text-[8px] sm:text-[9px]">Experience</p>
+                    <p className="font-medium text-[9px] sm:text-[10px]">{advisor.experience}</p>
                   </div>
                 </div>
               </div>
