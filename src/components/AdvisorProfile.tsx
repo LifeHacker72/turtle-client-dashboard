@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { type AdvisorData } from './AdvisorCard';
@@ -13,6 +14,14 @@ interface AdvisorProfileProps {
 const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
   const isActive = advisor.completionPercentage >= 50;
   const isMobile = useIsMobile();
+  
+  // For demo purposes - let's simulate a recent update date
+  const lastUpdated = new Date();
+  const formattedDate = lastUpdated.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
   
   // Special case for Turtle Hotline
   if (advisor.isTurtleHotline) {
@@ -114,21 +123,23 @@ const AdvisorProfile: React.FC<AdvisorProfileProps> = ({ advisor }) => {
           </div>
         </div>
         
-        <div>
+        {/* New boxed section for data completion */}
+        <div className="bg-gray-50 p-3 md:p-4 rounded-md space-y-2">
           {!isActive && (
-            <p className="text-xs md:text-sm text-[#2edfbf] mb-1 font-medium">
+            <p className="text-xs md:text-sm text-[#2edfbf] font-medium">
               Just {Math.ceil((50 - advisor.completionPercentage) / 10)} minutes needed to complete
             </p>
           )}
-          <div className="flex justify-between items-center text-xs md:text-sm text-gray-500 mb-1">
+          <div className="flex justify-between items-center text-xs md:text-sm text-gray-500">
             <span>Data completion</span>
             <span className="font-medium">{advisor.completionPercentage}%</span>
           </div>
           <Progress 
             value={advisor.completionPercentage} 
-            className="h-1.5 md:h-2 mb-3 md:mb-4" 
+            className="h-1.5 md:h-2" 
             indicatorClassName={`${isActive ? 'bg-[#2edfbf]' : 'bg-gray-400'}`}
           />
+          <p className="text-xs text-gray-500 italic pt-1">Last updated on {formattedDate}</p>
         </div>
         
         <DialogDescription className="text-xs md:text-sm text-gray-700 leading-relaxed">
