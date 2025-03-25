@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { Button } from './ui/button';
@@ -81,9 +82,15 @@ const advisors: AdvisorData[] = [
 ];
 
 const Dashboard: React.FC = () => {
+  const [expandedAdvisorId, setExpandedAdvisorId] = useState<string | null>(null);
+  
   const handleUpdateData = () => {
     // TODO: Implement data update logic
     console.log('Inputting data...');
+  };
+
+  const handleAdvisorClick = (advisorId: string) => {
+    setExpandedAdvisorId(expandedAdvisorId === advisorId ? null : advisorId);
   };
 
   return (
@@ -93,9 +100,14 @@ const Dashboard: React.FC = () => {
         
         <section className="mb-8 md:mb-12">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
-          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">
+          <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3 relative">
             {advisors.map((advisor) => (
-              <AdvisorCard key={advisor.id} advisor={advisor} />
+              <AdvisorCard 
+                key={advisor.id} 
+                advisor={advisor} 
+                isExpanded={expandedAdvisorId === advisor.id}
+                onClick={() => handleAdvisorClick(advisor.id)}
+              />
             ))}
           </div>
         </section>
