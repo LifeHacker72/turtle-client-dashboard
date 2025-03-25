@@ -54,7 +54,7 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
         <div className="p-2 bg-white flex-grow flex flex-col">
           <div className="flex flex-col h-full">
             <div className="mb-1">
-              <h3 className="font-semibold text-xs md:text-sm truncate">{advisor.name}</h3>
+              <h3 className="font-semibold text-xs truncate">{advisor.name}</h3>
               <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
             </div>
             
@@ -115,18 +115,18 @@ const AdvisorCard: React.FC<AdvisorCardProps> = ({ advisor }) => {
             <div className="p-2 bg-white relative flex-grow flex flex-col">
               <div className="flex flex-col h-full">
                 <div className="mb-1">
-                  <h3 className="font-semibold text-xs md:text-sm truncate">{advisor.name}</h3>
-                  <p className="text-[10px] md:text-xs text-gray-600 truncate">{advisor.title}</p>
+                  <h3 className="font-semibold text-xs truncate">{advisor.name}</h3>
+                  <p className="text-xs text-gray-600 truncate">{advisor.title}</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-1 text-[10px] md:text-xs bg-gray-50 rounded-lg p-1.5">
+                <div className="grid grid-cols-2 gap-1 text-xs bg-gray-50 rounded-lg p-1.5">
                   <div>
-                    <p className="text-gray-500 text-[8px] md:text-[10px]">Credentials</p>
-                    <p className="font-medium">{advisor.qualification}</p>
+                    <p className="text-gray-500 text-[10px]">Credentials</p>
+                    <p className="font-medium text-xs">{advisor.qualification}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 text-[8px] md:text-[10px]">Experience</p>
-                    <p className="font-medium">{advisor.experience}</p>
+                    <p className="text-gray-500 text-[10px]">Experience</p>
+                    <p className="font-medium text-xs">{advisor.experience}</p>
                   </div>
                 </div>
               </div>

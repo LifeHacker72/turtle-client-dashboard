@@ -16,12 +16,12 @@ const Header: React.FC = () => {
           <img 
             src="/lovable-uploads/298bc0f1-29f9-48b1-ad63-ae1d9054c560.png" 
             alt="Turtle Logo" 
-            className="h-12 md:h-14 hover:scale-105 transition-transform duration-300"
+            className="h-10 w-auto md:h-14 hover:scale-105 transition-transform duration-300"
           />
         </div>
         
-        <div className="flex items-center gap-6">
-          <div className="text-sm text-gray-600">
+        <div className="flex items-center gap-3 md:gap-6">
+          <div className="hidden sm:block text-xs md:text-sm text-gray-600">
             Membership active until: 
             <span className="ml-1 font-semibold">
               {membershipExpiration.toLocaleDateString('en-US', { 
