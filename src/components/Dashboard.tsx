@@ -87,14 +87,9 @@ const Dashboard: React.FC = () => {
         
         <section className="mb-8 md:mb-12">
           <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
             {advisors.map((advisor) => (
-              <div key={advisor.id} className="transform scale-[0.6] origin-top-left" style={{ height: '240px' }}>
-                <div className="w-[166%] h-[166%]">
-                  <AdvisorCard key={advisor.id} advisor={advisor} />
-                </div>
-              </div>
+              <AdvisorCard key={advisor.id} advisor={advisor} />
             ))}
           </div>
         </section>
