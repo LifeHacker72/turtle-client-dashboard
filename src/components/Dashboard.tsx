@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AdvisorCard from './AdvisorCard';
 import Header from './Header';
 import { type AdvisorData } from './AdvisorCard';
@@ -80,28 +80,6 @@ const advisors: AdvisorData[] = [
 ];
 
 const Dashboard: React.FC = () => {
-  const [containerStyle, setContainerStyle] = useState({});
-  
-  // Function to adjust container size based on viewport
-  useEffect(() => {
-    const adjustSize = () => {
-      const viewportHeight = window.innerHeight;
-      const headerHeight = 64; // Estimated header height
-      const availableHeight = viewportHeight - headerHeight - 40; // Subtract padding/margins
-      const cardHeight = Math.floor(availableHeight / 2); // Divide by 2 rows
-      
-      setContainerStyle({
-        maxHeight: `${availableHeight}px`,
-        gridTemplateRows: `repeat(2, minmax(0, ${cardHeight}px))`,
-      });
-    };
-    
-    // Adjust on mount and window resize
-    adjustSize();
-    window.addEventListener('resize', adjustSize);
-    return () => window.removeEventListener('resize', adjustSize);
-  }, []);
-
   return (
     <div className="min-h-screen max-h-screen overflow-hidden bg-gray-50 flex flex-col">
       <div className="w-full h-full mx-auto px-2 md:px-4 py-2 flex flex-col">
@@ -109,10 +87,7 @@ const Dashboard: React.FC = () => {
         
         <section className="flex-grow flex flex-col justify-center">
           <h2 className="text-lg font-semibold mb-2 text-gray-800">Your Advisory Team</h2>
-          <div 
-            className="grid grid-cols-2 sm:grid-cols-3 gap-2 mx-auto w-full max-w-5xl" 
-            style={containerStyle}
-          >
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mx-auto w-full max-w-5xl">
             {advisors.map((advisor) => (
               <AdvisorCard key={advisor.id} advisor={advisor} />
             ))}
