@@ -1,8 +1,7 @@
 import React from 'react';
 import AdvisorCard from './AdvisorCard';
-import Header from './Header';
 import { Button } from './ui/button';
-import { RefreshCw, Pencil } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { type AdvisorData } from './AdvisorCard';
 
 const advisors: AdvisorData[] = [
@@ -87,28 +86,24 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-3 md:px-4 py-4 md:py-8 sm:px-6 lg:px-8">
-        <Header />
-        
-        <section className="mb-8 md:mb-12">
-          <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">
-            {advisors.map((advisor) => (
-              <AdvisorCard key={advisor.id} advisor={advisor} />
-            ))}
-          </div>
-        </section>
-
-        <div className="flex justify-center mt-6">
-          <Button 
-            onClick={handleUpdateData}
-            className="bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center gap-2 text-xs md:text-sm h-8 md:h-9"
-          >
-            <Pencil className="h-3 w-3 md:h-4 md:w-4" />
-            Update Data
-          </Button>
+    <div className="min-h-full">
+      <section className="mb-8 md:mb-12">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6 text-gray-800">Your Advisory Team</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">
+          {advisors.map((advisor) => (
+            <AdvisorCard key={advisor.id} advisor={advisor} />
+          ))}
         </div>
+      </section>
+
+      <div className="flex justify-center mt-6">
+        <Button 
+          onClick={handleUpdateData}
+          className="bg-black hover:bg-black/90 hover:border-[#2edfbf] hover:border-2 text-white transition-all duration-300 flex items-center justify-center gap-2 text-xs md:text-sm h-8 md:h-9"
+        >
+          <Pencil className="h-3 w-3 md:h-4 md:w-4" />
+          Update Data
+        </Button>
       </div>
     </div>
   );
