@@ -14,6 +14,8 @@ interface TaskCardProps {
   onEdit: (task: Task) => void;
   onView: (task: Task) => void;
   onDelete: (task: Task) => void;
+  hideClient?: boolean;
+  ownerLabel?: string;
 }
 
 const TaskCard: React.FC<TaskCardProps> = ({
@@ -21,7 +23,9 @@ const TaskCard: React.FC<TaskCardProps> = ({
   onStatusChange,
   onEdit,
   onView,
-  onDelete
+  onDelete,
+  hideClient = false,
+  ownerLabel = "Owner"
 }) => {
   return (
     <Card className="transition-all border hover:border-[#2edebe] group">
@@ -51,14 +55,16 @@ const TaskCard: React.FC<TaskCardProps> = ({
         </h3>
         
         <div className="mt-4 space-y-2 text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <User className="h-4 w-4 text-gray-400" />
-            <span>Client:</span>
-            <span className="font-medium">{task.client}</span>
-          </div>
+          {!hideClient && (
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4 text-gray-400" />
+              <span>Client:</span>
+              <span className="font-medium">{task.client}</span>
+            </div>
+          )}
           <div className="flex items-center gap-2">
             <UserCheck className="h-4 w-4 text-gray-400" />
-            <span>Owner:</span>
+            <span>{ownerLabel}:</span>
             <span className="font-medium">{task.owner}</span>
           </div>
           <div className="flex items-center gap-2">

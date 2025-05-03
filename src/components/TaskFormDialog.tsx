@@ -36,13 +36,23 @@ interface TaskFormDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (task: Task) => void;
+  hideClient?: boolean;
+  hideAdvisor?: boolean;
+  hideOwner?: boolean;
+  hidePriority?: boolean;
+  defaultClient?: string;
 }
 
 const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
   task,
   isOpen,
   onClose,
-  onSave
+  onSave,
+  hideClient = false,
+  hideAdvisor = false,
+  hideOwner = false,
+  hidePriority = false,
+  defaultClient = ''
 }) => {
   const { toast } = useToast();
   const isEditing = !!task;
@@ -51,7 +61,7 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
     defaultValues: task || {
       id: String(Date.now()),
       task: '',
-      client: '',
+      client: defaultClient || '',
       advisor: '',
       owner: '',
       status: 'pending',
@@ -100,47 +110,53 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
             />
             
             <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="client"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Client</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Client name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!hideClient && (
+                <FormField
+                  control={form.control}
+                  name="client"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Client</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Client name" {...field} readOnly={!!defaultClient} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               
-              <FormField
-                control={form.control}
-                name="advisor"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Advisor</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Advisor name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!hideAdvisor && (
+                <FormField
+                  control={form.control}
+                  name="advisor"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Advisor</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Advisor name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               
-              <FormField
-                control={form.control}
-                name="owner"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Owner</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Task owner" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!hideOwner && (
+                <FormField
+                  control={form.control}
+                  name="owner"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Owner</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Task owner" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               
               <FormField
                 control={form.control}
@@ -182,31 +198,33 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
                 )}
               />
               
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Priority</FormLabel>
-                    <Select 
-                      onValueChange={field.onChange} 
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select priority" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="low">Low</SelectItem>
-                        <SelectItem value="medium">Medium</SelectItem>
-                        <SelectItem value="high">High</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {!hidePriority && (
+                <FormField
+                  control={form.control}
+                  name="priority"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Priority</FormLabel>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select priority" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="low">Low</SelectItem>
+                          <SelectItem value="medium">Medium</SelectItem>
+                          <SelectItem value="high">High</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
             
             <FormField

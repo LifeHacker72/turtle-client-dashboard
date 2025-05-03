@@ -20,13 +20,17 @@ interface TaskDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onEdit: (task: Task) => void;
+  hideClient?: boolean;
+  ownerLabel?: string;
 }
 
 const TaskDialog: React.FC<TaskDialogProps> = ({
   task,
   isOpen,
   onClose,
-  onEdit
+  onEdit,
+  hideClient = false,
+  ownerLabel = "Owner"
 }) => {
   if (!task) return null;
 
@@ -49,16 +53,18 @@ const TaskDialog: React.FC<TaskDialogProps> = ({
           )}
           
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <h4 className="text-sm font-medium text-gray-500">Client</h4>
-              <div className="flex items-center gap-2 mt-1">
-                <User className="h-4 w-4 text-gray-400" />
-                <span>{task.client}</span>
+            {!hideClient && (
+              <div>
+                <h4 className="text-sm font-medium text-gray-500">Client</h4>
+                <div className="flex items-center gap-2 mt-1">
+                  <User className="h-4 w-4 text-gray-400" />
+                  <span>{task.client}</span>
+                </div>
               </div>
-            </div>
+            )}
             
             <div>
-              <h4 className="text-sm font-medium text-gray-500">Owner</h4>
+              <h4 className="text-sm font-medium text-gray-500">{ownerLabel}</h4>
               <div className="flex items-center gap-2 mt-1">
                 <UserCheck className="h-4 w-4 text-gray-400" />
                 <span>{task.owner}</span>
