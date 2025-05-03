@@ -11,13 +11,13 @@ import {
 import { Task } from '@/types/task';
 import { Button } from '@/components/ui/button';
 import { Edit, Eye, Trash2 } from 'lucide-react';
-import StatusBadge from './StatusBadge';
 import { format } from 'date-fns';
 
 interface Column {
   header: string;
   accessor: keyof Task | ((task: Task) => React.ReactNode);
   width?: string;
+  render?: (value: any) => React.ReactNode;
 }
 
 interface DataTableProps {
@@ -32,7 +32,6 @@ interface DataTableProps {
 const DataTable: React.FC<DataTableProps> = ({
   data,
   columns,
-  onStatusChange,
   onEdit,
   onView,
   onDelete
@@ -70,9 +69,11 @@ const DataTable: React.FC<DataTableProps> = ({
                   <TableCell key={index}>
                     {typeof column.accessor === 'function'
                       ? column.accessor(row)
-                      : column.accessor === 'dueDate'
-                        ? format(new Date(row[column.accessor] as string), 'dd MMM yyyy')
-                        : row[column.accessor] as string}
+                      : column.render 
+                        ? column.render(row[column.accessor])
+                        : column.accessor === 'dueDate'
+                          ? format(new Date(row[column.accessor] as string), 'dd MMM yyyy')
+                          : row[column.accessor] as string}
                   </TableCell>
                 ))}
                 <TableCell className="flex justify-end gap-2">

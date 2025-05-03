@@ -19,7 +19,7 @@ import TaskFormDialog from '@/components/TaskFormDialog';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import StatusBadge from '@/components/StatusBadge';
 import { CheckCircle2, AlertCircle, Clock, LayoutGrid, LayoutList, Plus, Search } from 'lucide-react';
-import { format, isAfter, parseISO } from 'date-fns';
+import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
 
 // Sample task data
@@ -126,6 +126,7 @@ const PendingItems: React.FC = () => {
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const [filteredOwner, setFilteredOwner] = useState<string | null>(null);
 
   // Get counts for each status
   const statusCounts = useMemo(() => {
@@ -137,21 +138,22 @@ const PendingItems: React.FC = () => {
     };
   }, [tasks]);
 
-  // Filter tasks based on search query and selected status
+  // Filter tasks based on search query, selected status, and filtered owner
   const filteredTasks = useMemo(() => {
     return tasks.filter(task => {
       const matchesSearch = 
         searchQuery === '' || 
         task.task.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        task.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
         task.advisor.toLowerCase().includes(searchQuery.toLowerCase()) ||
         task.owner.toLowerCase().includes(searchQuery.toLowerCase());
       
       const matchesStatus = selectedStatus === 'all' || task.status === selectedStatus;
       
-      return matchesSearch && matchesStatus;
+      const matchesOwner = filteredOwner === null || task.owner === filteredOwner;
+      
+      return matchesSearch && matchesStatus && matchesOwner;
     });
-  }, [tasks, searchQuery, selectedStatus]);
+  }, [tasks, searchQuery, selectedStatus, filteredOwner]);
 
   // Group tasks if grouping is selected
   const groupedTasks = useMemo(() => {
@@ -187,12 +189,16 @@ const PendingItems: React.FC = () => {
       width: 'w-[250px]'
     },
     {
-      header: 'Client',
-      accessor: 'client' as keyof Task,
-    },
-    {
-      header: 'Owner',
+      header: 'Pending with',
       accessor: 'owner' as keyof Task,
+      render: (value: string) => (
+        <button 
+          onClick={() => handleOwnerFilter(value)}
+          className="text-blue-600 hover:underline focus:outline-none"
+        >
+          {value}
+        </button>
+      )
     },
     {
       header: 'Due Date',
@@ -201,10 +207,12 @@ const PendingItems: React.FC = () => {
     {
       header: 'Status',
       accessor: (task: Task) => (
-        <StatusBadge 
-          status={task.status} 
-          onStatusChange={(newStatus) => handleStatusChange(task.id, newStatus)} 
-        />
+        <div className="w-28">
+          <StatusBadge 
+            status={task.status} 
+            onStatusChange={(newStatus) => handleStatusChange(task.id, newStatus)} 
+          />
+        </div>
       ),
     },
   ];
@@ -220,6 +228,17 @@ const PendingItems: React.FC = () => {
     toast({
       title: "Status Updated",
       description: `Task status changed to ${newStatus}`,
+    });
+  };
+
+  const handleOwnerFilter = (owner: string) => {
+    setFilteredOwner(prevOwner => prevOwner === owner ? null : owner);
+    
+    toast({
+      title: filteredOwner === owner ? "Filter Cleared" : "Filter Applied",
+      description: filteredOwner === owner 
+        ? "Showing all tasks" 
+        : `Showing tasks pending with ${owner}`,
     });
   };
 
@@ -270,6 +289,10 @@ const PendingItems: React.FC = () => {
     }
   };
 
+  const clearOwnerFilter = () => {
+    setFilteredOwner(null);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
@@ -279,9 +302,20 @@ const PendingItems: React.FC = () => {
         </div>
         <Button onClick={handleOpenCreateDialog}>
           <Plus className="mr-2 h-4 w-4" />
-          Create New Task
+          Request New Task
         </Button>
       </div>
+      
+      {filteredOwner && (
+        <div className="bg-blue-50 p-3 rounded-md flex items-center justify-between">
+          <span>
+            Filtered by <span className="font-medium">Pending with: {filteredOwner}</span>
+          </span>
+          <Button variant="ghost" size="sm" onClick={clearOwnerFilter}>
+            Clear filter
+          </Button>
+        </div>
+      )}
       
       {/* Status cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -359,10 +393,9 @@ const PendingItems: React.FC = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="none">No Grouping</SelectItem>
-              <SelectItem value="owner">Group by Owner</SelectItem>
+              <SelectItem value="owner">Group by Pending with</SelectItem>
               <SelectItem value="dueDate">Group by Due Date</SelectItem>
               <SelectItem value="advisor">Group by Advisor</SelectItem>
-              <SelectItem value="client">Group by Client</SelectItem>
             </SelectContent>
           </Select>
           
@@ -415,6 +448,8 @@ const PendingItems: React.FC = () => {
                   onEdit={handleOpenEditDialog}
                   onView={handleOpenTaskDialog}
                   onDelete={handleConfirmDelete}
+                  hideClient={true}
+                  ownerLabel="Pending with"
                 />
               ))}
             </div>
@@ -431,6 +466,8 @@ const PendingItems: React.FC = () => {
           setIsTaskDialogOpen(false);
           setTimeout(() => handleOpenEditDialog(task), 100);
         }}
+        hideClient={true}
+        ownerLabel="Pending with"
       />
       
       {/* Task form dialog */}
@@ -439,6 +476,11 @@ const PendingItems: React.FC = () => {
         isOpen={isFormDialogOpen}
         onClose={() => setIsFormDialogOpen(false)}
         onSave={handleSaveTask}
+        hideClient={true}
+        hideAdvisor={true}
+        hideOwner={true}
+        hidePriority={true}
+        defaultClient="Current Client" // This would come from auth context
       />
       
       {/* Confirm delete dialog */}
