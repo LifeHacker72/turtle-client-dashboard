@@ -79,7 +79,7 @@ const DashboardLayout: React.FC<{ children?: React.ReactNode }> = ({ children })
           </SidebarContent>
         </Sidebar>
         
-        <div className="flex-1 flex flex-col w-full">
+        <div className="flex-1 flex flex-col w-full overflow-hidden">
           <div className="max-w-full mx-auto px-3 md:px-4 py-4 md:py-8 sm:px-6 lg:px-8 w-full">
             <Header />
             <main className="mt-4">

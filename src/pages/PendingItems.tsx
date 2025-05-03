@@ -1,136 +1,455 @@
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState, useMemo } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from '@/components/ui/input';
+import { Task, TaskStatus, GroupByOption, ViewMode } from '@/types/task';
+import { useToast } from '@/hooks/use-toast';
+import DataTable from '@/components/DataTable';
+import TaskCard from '@/components/TaskCard';
+import TaskDialog from '@/components/TaskDialog';
+import TaskFormDialog from '@/components/TaskFormDialog';
+import ConfirmDialog from '@/components/ConfirmDialog';
+import { CheckCircle2, AlertCircle, Clock, LayoutGrid, LayoutList, Plus, Search } from 'lucide-react';
+import { format, isAfter, parseISO } from 'date-fns';
+import { cn } from '@/lib/utils';
+
+// Sample task data
+const taskData: Task[] = [
+  {
+    id: '1',
+    task: 'Review Financial Statement',
+    client: 'Vijay Malhotra',
+    advisor: 'Priya Sharma',
+    owner: 'Rajesh Patel',
+    status: 'overdue',
+    dueDate: '2025-05-01',
+    description: 'Review quarterly financial statements and provide feedback on investment performance.',
+    priority: 'high',
+    createdAt: '2025-04-15T10:30:00Z'
+  },
+  {
+    id: '2',
+    task: 'Update Insurance Documentation',
+    client: 'Ananya Singh',
+    advisor: 'Vikram Singh',
+    owner: 'Priya Sharma',
+    status: 'pending',
+    dueDate: '2025-05-10',
+    description: 'Update client insurance documentation with new policy details.',
+    priority: 'medium',
+    createdAt: '2025-04-20T14:15:00Z'
+  },
+  {
+    id: '3',
+    task: 'Prepare Tax Planning Session',
+    client: 'Rajesh Kumar',
+    advisor: 'Anjali Desai',
+    owner: 'Aisha Khan',
+    status: 'pending',
+    dueDate: '2025-05-15',
+    description: 'Prepare materials and agenda for upcoming tax planning session.',
+    meetingId: 'MTG-2025-05',
+    meetingNumber: 3,
+    priority: 'medium',
+    createdAt: '2025-04-22T09:00:00Z'
+  },
+  {
+    id: '4',
+    task: 'Portfolio Rebalancing Review',
+    client: 'Arjun Mehta',
+    advisor: 'Priya Sharma',
+    owner: 'Vikram Singh',
+    status: 'completed',
+    dueDate: '2025-04-30',
+    description: 'Complete quarterly portfolio rebalancing review and adjustment recommendations.',
+    priority: 'high',
+    createdAt: '2025-04-10T11:45:00Z'
+  },
+  {
+    id: '5',
+    task: 'Client Follow-up Call',
+    client: 'Neha Kapoor',
+    advisor: 'Meera Kapoor',
+    owner: 'Rajesh Patel',
+    status: 'pending',
+    dueDate: '2025-05-08',
+    description: 'Follow up with client regarding recent financial recommendations and answer questions.',
+    priority: 'low',
+    createdAt: '2025-04-25T16:30:00Z'
+  },
+  {
+    id: '6',
+    task: 'Retirement Planning Analysis',
+    client: 'Sanjay Gupta',
+    advisor: 'Anjali Desai',
+    owner: 'Priya Sharma',
+    status: 'completed',
+    dueDate: '2025-04-28',
+    description: 'Complete retirement planning analysis and prepare presentation for client meeting.',
+    meetingId: 'MTG-2025-04',
+    meetingNumber: 2,
+    priority: 'high',
+    createdAt: '2025-04-05T13:20:00Z'
+  },
+  {
+    id: '7',
+    task: 'Estate Planning Document Review',
+    client: 'Kiran Patel',
+    advisor: 'Vikram Singh',
+    owner: 'Aisha Khan',
+    status: 'overdue',
+    dueDate: '2025-04-25',
+    description: 'Review and update estate planning documents based on recent legislative changes.',
+    priority: 'medium',
+    createdAt: '2025-04-01T10:00:00Z'
+  },
+];
 
 const PendingItems: React.FC = () => {
-  // Placeholder data for pending tasks - similar to advisory-dashboard-nexus format
-  const pendingTasks = [
-    { 
-      id: '1', 
-      title: 'Insurance Document Review', 
-      assignedTo: 'Priya Sharma', 
-      dueDate: '2025-05-10', 
-      status: 'Pending',
-      priority: 'High',
-      description: 'Review updated insurance policy documents for compliance with financial regulations.'
+  const { toast } = useToast();
+  const [tasks, setTasks] = useState<Task[]>(taskData);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState<TaskStatus | 'all'>('all');
+  const [groupBy, setGroupBy] = useState<GroupByOption>('none');
+  const [viewMode, setViewMode] = useState<ViewMode>('table');
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
+  const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+
+  // Get counts for each status
+  const statusCounts = useMemo(() => {
+    return {
+      all: tasks.length,
+      pending: tasks.filter(task => task.status === 'pending').length,
+      overdue: tasks.filter(task => task.status === 'overdue').length,
+      completed: tasks.filter(task => task.status === 'completed').length,
+    };
+  }, [tasks]);
+
+  // Filter tasks based on search query and selected status
+  const filteredTasks = useMemo(() => {
+    return tasks.filter(task => {
+      const matchesSearch = 
+        searchQuery === '' || 
+        task.task.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.advisor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.owner.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesStatus = selectedStatus === 'all' || task.status === selectedStatus;
+      
+      return matchesSearch && matchesStatus;
+    });
+  }, [tasks, searchQuery, selectedStatus]);
+
+  // Group tasks if grouping is selected
+  const groupedTasks = useMemo(() => {
+    if (groupBy === 'none') {
+      return { 'All Tasks': filteredTasks };
+    }
+
+    const groups: Record<string, Task[]> = {};
+    
+    filteredTasks.forEach(task => {
+      let groupKey = '';
+      
+      if (groupBy === 'dueDate') {
+        groupKey = format(new Date(task.dueDate), 'MMM dd, yyyy');
+      } else if (groupBy === 'owner' || groupBy === 'advisor' || groupBy === 'client') {
+        groupKey = task[groupBy];
+      }
+      
+      if (!groups[groupKey]) {
+        groups[groupKey] = [];
+      }
+      
+      groups[groupKey].push(task);
+    });
+    
+    return groups;
+  }, [filteredTasks, groupBy]);
+
+  const tableColumns = [
+    {
+      header: 'Task',
+      accessor: 'task',
+      width: 'w-[250px]'
     },
-    { 
-      id: '2', 
-      title: 'Tax Planning Session', 
-      assignedTo: 'Rajesh Patel', 
-      dueDate: '2025-05-15', 
-      status: 'In Progress',
-      priority: 'Medium',
-      description: 'Prepare tax planning strategies for the upcoming fiscal year.'
+    {
+      header: 'Client',
+      accessor: 'client',
     },
-    { 
-      id: '3', 
-      title: 'Portfolio Rebalancing', 
-      assignedTo: 'Vikram Singh', 
-      dueDate: '2025-05-20', 
-      status: 'Not Started',
-      priority: 'Low',
-      description: 'Analyze and rebalance investment portfolio based on market conditions.'
+    {
+      header: 'Owner',
+      accessor: 'owner',
     },
-    { 
-      id: '4', 
-      title: 'Retirement Planning Review', 
-      assignedTo: 'Aisha Khan', 
-      dueDate: '2025-05-22', 
-      status: 'Pending',
-      priority: 'High',
-      description: 'Annual review of retirement planning goals and current progress.'
+    {
+      header: 'Due Date',
+      accessor: 'dueDate',
+    },
+    {
+      header: 'Status',
+      accessor: (task: Task) => (
+        <StatusBadge 
+          status={task.status} 
+          onStatusChange={(newStatus) => handleStatusChange(task.id, newStatus)} 
+        />
+      ),
     },
   ];
 
-  const getPriorityBadge = (priority: string) => {
-    switch(priority) {
-      case 'High':
-        return <Badge variant="destructive">High</Badge>;
-      case 'Medium':
-        return <Badge variant="outline" className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Medium</Badge>;
-      case 'Low':
-        return <Badge variant="outline" className="bg-green-100 text-green-800 hover:bg-green-200">Low</Badge>;
-      default:
-        return <Badge variant="outline">{priority}</Badge>;
+  // Task handlers
+  const handleStatusChange = (id: string, newStatus: TaskStatus) => {
+    setTasks(prev => 
+      prev.map(task => 
+        task.id === id ? { ...task, status: newStatus } : task
+      )
+    );
+    
+    toast({
+      title: "Status Updated",
+      description: `Task status changed to ${newStatus}`,
+    });
+  };
+
+  const handleOpenTaskDialog = (task: Task) => {
+    setSelectedTask(task);
+    setIsTaskDialogOpen(true);
+  };
+
+  const handleOpenEditDialog = (task: Task) => {
+    setSelectedTask(task);
+    setIsFormDialogOpen(true);
+  };
+
+  const handleOpenCreateDialog = () => {
+    setSelectedTask(null);
+    setIsFormDialogOpen(true);
+  };
+
+  const handleConfirmDelete = (task: Task) => {
+    setTaskToDelete(task);
+    setIsConfirmDialogOpen(true);
+  };
+
+  const handleDeleteTask = () => {
+    if (taskToDelete) {
+      setTasks(prev => prev.filter(task => task.id !== taskToDelete.id));
+      
+      toast({
+        title: "Task Deleted",
+        description: "The task has been successfully deleted",
+      });
+      
+      setTaskToDelete(null);
     }
   };
 
-  const getStatusBadge = (status: string) => {
-    switch(status) {
-      case 'Pending':
-        return <Badge variant="outline" className="bg-blue-100 text-blue-800">Pending</Badge>;
-      case 'In Progress':
-        return <Badge variant="outline" className="bg-purple-100 text-purple-800">In Progress</Badge>;
-      case 'Not Started':
-        return <Badge variant="outline" className="bg-gray-100 text-gray-800">Not Started</Badge>;
-      default:
-        return <Badge variant="outline">{status}</Badge>;
+  const handleSaveTask = (taskData: Task) => {
+    if (tasks.some(t => t.id === taskData.id)) {
+      // Update existing task
+      setTasks(prev => 
+        prev.map(task => 
+          task.id === taskData.id ? taskData : task
+        )
+      );
+    } else {
+      // Add new task
+      setTasks(prev => [...prev, taskData]);
     }
   };
 
   return (
-    <div className="space-y-6 w-full">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Pending Items</h1>
-        <Button variant="outline">View All Tasks</Button>
+    <div className="space-y-6">
+      <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold">Pending Items</h1>
+          <p className="text-gray-500">Manage and track tasks</p>
+        </div>
+        <Button onClick={handleOpenCreateDialog}>
+          <Plus className="mr-2 h-4 w-4" />
+          Create New Task
+        </Button>
       </div>
       
-      <Card className="w-full">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-xl">Your Pending Tasks</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="grid grid-cols-12 gap-2 font-medium text-sm text-gray-500 px-2">
-              <div className="col-span-4 md:col-span-3">Task</div>
-              <div className="hidden md:block md:col-span-2">Assigned To</div>
-              <div className="col-span-3 md:col-span-2">Due Date</div>
-              <div className="col-span-3 md:col-span-2">Status</div>
-              <div className="col-span-2 md:col-span-2">Priority</div>
-              <div className="hidden md:block md:col-span-1">Action</div>
+      {/* Status cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card 
+          className={cn(
+            "cursor-pointer transition-all",
+            selectedStatus === 'all' && "border-[#2edebe] ring-2 ring-[#2edebe]/20"
+          )}
+          onClick={() => setSelectedStatus('all')}
+        >
+          <CardContent className="p-4 flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-500">All Tasks</p>
+              <h3 className="text-2xl font-bold">{statusCounts.all}</h3>
             </div>
-            
-            <Separator />
-            
-            {pendingTasks.map((task) => (
-              <div key={task.id} className="hover:bg-gray-50 rounded-md transition-colors">
-                <div className="grid grid-cols-12 gap-2 items-center py-3 px-2">
-                  <div className="col-span-4 md:col-span-3">
-                    <p className="font-medium">{task.title}</p>
-                    <p className="text-xs text-gray-500 md:hidden truncate">{task.assignedTo}</p>
-                  </div>
-                  <div className="hidden md:block md:col-span-2 text-sm">{task.assignedTo}</div>
-                  <div className="col-span-3 md:col-span-2 text-sm">{new Date(task.dueDate).toLocaleDateString()}</div>
-                  <div className="col-span-3 md:col-span-2">{getStatusBadge(task.status)}</div>
-                  <div className="col-span-2 md:col-span-2">{getPriorityBadge(task.priority)}</div>
-                  <div className="hidden md:flex md:col-span-1 justify-end">
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                      <span className="sr-only">View task</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        className="h-4 w-4"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </Button>
-                  </div>
-                </div>
-                <Separator />
-              </div>
-            ))}
+            <div className="h-10 w-10 rounded-full bg-gray-100 flex items-center justify-center">
+              <Clock className="h-5 w-5 text-gray-500" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card 
+          className={cn(
+            "cursor-pointer transition-all",
+            selectedStatus === 'overdue' && "border-[#2edebe] ring-2 ring-[#2edebe]/20"
+          )}
+          onClick={() => setSelectedStatus('overdue')}
+        >
+          <CardContent className="p-4 flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-500">Overdue</p>
+              <h3 className="text-2xl font-bold">{statusCounts.overdue}</h3>
+            </div>
+            <div className="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center">
+              <AlertCircle className="h-5 w-5 text-red-500" />
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card 
+          className={cn(
+            "cursor-pointer transition-all",
+            selectedStatus === 'completed' && "border-[#2edebe] ring-2 ring-[#2edebe]/20"
+          )}
+          onClick={() => setSelectedStatus('completed')}
+        >
+          <CardContent className="p-4 flex justify-between items-center">
+            <div>
+              <p className="text-sm text-gray-500">Completed</p>
+              <h3 className="text-2xl font-bold">{statusCounts.completed}</h3>
+            </div>
+            <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
+              <CheckCircle2 className="h-5 w-5 text-green-500" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      
+      {/* Filters and controls */}
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="relative w-full md:w-64">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+          <Input
+            placeholder="Search tasks..."
+            className="pl-9"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Select value={groupBy} onValueChange={(value) => setGroupBy(value as GroupByOption)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Group by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">No Grouping</SelectItem>
+              <SelectItem value="owner">Group by Owner</SelectItem>
+              <SelectItem value="dueDate">Group by Due Date</SelectItem>
+              <SelectItem value="advisor">Group by Advisor</SelectItem>
+              <SelectItem value="client">Group by Client</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <div className="flex gap-1 border rounded-md p-1">
+            <Button
+              variant={viewMode === 'table' ? 'default' : 'ghost'}
+              size="sm"
+              className="w-10"
+              onClick={() => setViewMode('table')}
+            >
+              <LayoutList className="h-4 w-4" />
+              <span className="sr-only">Table View</span>
+            </Button>
+            <Button
+              variant={viewMode === 'card' ? 'default' : 'ghost'}
+              size="sm"
+              className="w-10"
+              onClick={() => setViewMode('card')}
+            >
+              <LayoutGrid className="h-4 w-4" />
+              <span className="sr-only">Card View</span>
+            </Button>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+      
+      {/* Tasks display */}
+      {Object.entries(groupedTasks).map(([groupName, groupTasks]) => (
+        <div key={groupName} className="mt-6">
+          {groupBy !== 'none' && (
+            <h3 className="font-medium text-lg mb-4">{groupName} ({groupTasks.length})</h3>
+          )}
+          
+          {viewMode === 'table' ? (
+            <DataTable
+              data={groupTasks}
+              columns={tableColumns}
+              onStatusChange={handleStatusChange}
+              onEdit={handleOpenEditDialog}
+              onView={handleOpenTaskDialog}
+              onDelete={handleConfirmDelete}
+            />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {groupTasks.map(task => (
+                <TaskCard
+                  key={task.id}
+                  task={task}
+                  onStatusChange={handleStatusChange}
+                  onEdit={handleOpenEditDialog}
+                  onView={handleOpenTaskDialog}
+                  onDelete={handleConfirmDelete}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      
+      {/* Task detail dialog */}
+      <TaskDialog
+        task={selectedTask}
+        isOpen={isTaskDialogOpen}
+        onClose={() => setIsTaskDialogOpen(false)}
+        onEdit={(task) => {
+          setIsTaskDialogOpen(false);
+          setTimeout(() => handleOpenEditDialog(task), 100);
+        }}
+      />
+      
+      {/* Task form dialog */}
+      <TaskFormDialog
+        task={selectedTask}
+        isOpen={isFormDialogOpen}
+        onClose={() => setIsFormDialogOpen(false)}
+        onSave={handleSaveTask}
+      />
+      
+      {/* Confirm delete dialog */}
+      <ConfirmDialog
+        title="Delete Task"
+        description="Are you sure you want to delete this task? This action cannot be undone."
+        isOpen={isConfirmDialogOpen}
+        onClose={() => setIsConfirmDialogOpen(false)}
+        onConfirm={handleDeleteTask}
+        confirmText="Delete"
+        variant="destructive"
+      />
     </div>
   );
 };
