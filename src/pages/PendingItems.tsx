@@ -17,6 +17,7 @@ import TaskCard from '@/components/TaskCard';
 import TaskDialog from '@/components/TaskDialog';
 import TaskFormDialog from '@/components/TaskFormDialog';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import StatusBadge from '@/components/StatusBadge';
 import { CheckCircle2, AlertCircle, Clock, LayoutGrid, LayoutList, Plus, Search } from 'lucide-react';
 import { format, isAfter, parseISO } from 'date-fns';
 import { cn } from '@/lib/utils';
@@ -182,20 +183,20 @@ const PendingItems: React.FC = () => {
   const tableColumns = [
     {
       header: 'Task',
-      accessor: 'task',
+      accessor: 'task' as keyof Task,
       width: 'w-[250px]'
     },
     {
       header: 'Client',
-      accessor: 'client',
+      accessor: 'client' as keyof Task,
     },
     {
       header: 'Owner',
-      accessor: 'owner',
+      accessor: 'owner' as keyof Task,
     },
     {
       header: 'Due Date',
-      accessor: 'dueDate',
+      accessor: 'dueDate' as keyof Task,
     },
     {
       header: 'Status',
