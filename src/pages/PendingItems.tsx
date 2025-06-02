@@ -10,6 +10,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { Task, TaskStatus, ViewMode } from '@/types/task';
 import { useToast } from '@/hooks/use-toast';
 import DataTable from '@/components/DataTable';
@@ -174,7 +176,7 @@ const PendingItems: React.FC = () => {
       accessor: 'advisor' as keyof Task,
     },
     {
-      header: 'Owner',
+      header: 'Pending with',
       accessor: 'owner' as keyof Task,
     },
     {
@@ -333,18 +335,16 @@ const PendingItems: React.FC = () => {
           />
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-2">
-          <div className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="hideCompleted"
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="hide-completed"
               checked={hideCompleted}
-              onChange={(e) => setHideCompleted(e.target.checked)}
-              className="rounded border-gray-300"
+              onCheckedChange={setHideCompleted}
             />
-            <label htmlFor="hideCompleted" className="text-sm">
+            <Label htmlFor="hide-completed" className="text-sm">
               Hide Completed Tasks
-            </label>
+            </Label>
           </div>
           
           <div className="flex gap-1 border rounded-md p-1">
@@ -373,14 +373,16 @@ const PendingItems: React.FC = () => {
       {/* Tasks display */}
       <div className="mt-6">
         {viewMode === 'table' ? (
-          <DataTable
-            data={filteredTasks}
-            columns={tableColumns}
-            onStatusChange={handleStatusChange}
-            onEdit={handleOpenEditDialog}
-            onView={handleOpenTaskDialog}
-            onDelete={handleConfirmDelete}
-          />
+          <div className="bg-white rounded-md border">
+            <DataTable
+              data={filteredTasks}
+              columns={tableColumns}
+              onStatusChange={handleStatusChange}
+              onEdit={handleOpenEditDialog}
+              onView={handleOpenTaskDialog}
+              onDelete={handleConfirmDelete}
+            />
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredTasks.map(task => (
@@ -392,7 +394,7 @@ const PendingItems: React.FC = () => {
                 onView={handleOpenTaskDialog}
                 onDelete={handleConfirmDelete}
                 hideClient={true}
-                ownerLabel="Owner"
+                ownerLabel="Pending with"
               />
             ))}
           </div>
@@ -409,7 +411,7 @@ const PendingItems: React.FC = () => {
           setTimeout(() => handleOpenEditDialog(task), 100);
         }}
         hideClient={true}
-        ownerLabel="Owner"
+        ownerLabel="Pending with"
       />
       
       {/* Task form dialog */}

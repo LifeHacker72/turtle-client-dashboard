@@ -30,6 +30,7 @@ import { Button } from '@/components/ui/button';
 import { Task, TaskStatus } from '@/types/task';
 import { format } from 'date-fns';
 import { useToast } from '@/hooks/use-toast';
+import StatusBadge from './StatusBadge';
 
 interface TaskFormDialogProps {
   task?: Task | null;
@@ -106,9 +107,14 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
               name="task"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Task Title</FormLabel>
+                  <FormLabel>Task</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter task title" {...field} />
+                    <Textarea 
+                      placeholder="Enter task description" 
+                      className="min-h-[100px] resize-none"
+                      rows={4}
+                      {...field} 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -159,35 +165,47 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
                   </FormItem>
                 )}
               />
-              
-              {isEditing && (
-                <FormField
-                  control={form.control}
-                  name="status"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Status</FormLabel>
-                      <Select 
-                        onValueChange={field.onChange} 
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select status" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="pending">Pending</SelectItem>
-                          <SelectItem value="overdue">Overdue</SelectItem>
-                          <SelectItem value="completed">Completed</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
             </div>
+            
+            {isEditing && (
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <Select 
+                      onValueChange={field.onChange} 
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="pending">
+                          <div className="flex items-center gap-2">
+                            <StatusBadge status="pending" interactive={false} />
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="overdue">
+                          <div className="flex items-center gap-2">
+                            <StatusBadge status="overdue" interactive={false} />
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="completed">
+                          <div className="flex items-center gap-2">
+                            <StatusBadge status="completed" interactive={false} />
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             
             <DialogFooter className="pt-4">
               <DialogClose asChild>

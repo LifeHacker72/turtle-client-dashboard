@@ -39,9 +39,6 @@ const TaskDialog: React.FC<TaskDialogProps> = ({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-xl">{task.task}</DialogTitle>
-          <DialogDescription className="pt-2">
-            <StatusBadge status={task.status} interactive={false} />
-          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-4 py-4">
@@ -51,6 +48,11 @@ const TaskDialog: React.FC<TaskDialogProps> = ({
               <p className="mt-1">{task.description}</p>
             </div>
           )}
+          
+          <div>
+            <h4 className="text-sm font-medium text-gray-500 mb-2">Status</h4>
+            <StatusBadge status={task.status} interactive={false} />
+          </div>
           
           <div className="grid grid-cols-2 gap-4">
             {!hideClient && (
@@ -95,30 +97,6 @@ const TaskDialog: React.FC<TaskDialogProps> = ({
               <div>
                 <h4 className="text-sm font-medium text-gray-500">Meeting Number</h4>
                 <p className="mt-1">{task.meetingNumber}</p>
-              </div>
-            )}
-            
-            {task.priority && (
-              <div>
-                <h4 className="text-sm font-medium text-gray-500">Priority</h4>
-                <p className="mt-1 font-medium">
-                  {task.priority === 'high' && (
-                    <span className="text-red-600">High</span>
-                  )}
-                  {task.priority === 'medium' && (
-                    <span className="text-yellow-600">Medium</span>
-                  )}
-                  {task.priority === 'low' && (
-                    <span className="text-green-600">Low</span>
-                  )}
-                </p>
-              </div>
-            )}
-            
-            {task.createdAt && (
-              <div>
-                <h4 className="text-sm font-medium text-gray-500">Created At</h4>
-                <p className="mt-1">{format(new Date(task.createdAt), 'dd MMM yyyy')}</p>
               </div>
             )}
           </div>
