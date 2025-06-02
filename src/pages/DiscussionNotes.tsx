@@ -1,14 +1,17 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import DataTable from '@/components/DataTable';
+import GenericDataTable from '@/components/GenericDataTable';
+import DiscussionNotesCard from '@/components/DiscussionNotesCard';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Table, Grid } from 'lucide-react';
 
 interface Meeting {
   id: string;
   advisor: string;
   date: string;
-  meetingNumber: string;
+  meetingNumber: number;
   actionItems: string[];
   discussionSummary: string;
 }
@@ -18,6 +21,7 @@ const DiscussionNotes: React.FC = () => {
   const [selectedSummary, setSelectedSummary] = useState<string | null>(null);
   const [isActionItemsOpen, setIsActionItemsOpen] = useState(false);
   const [isSummaryOpen, setIsSummaryOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'table' | 'card'>('table');
 
   // Sample data for meetings from AI-based note takers
   const meetings: Meeting[] = [
@@ -25,7 +29,7 @@ const DiscussionNotes: React.FC = () => {
       id: '1',
       advisor: 'Priya Sharma',
       date: '2025-05-02',
-      meetingNumber: 'MTG-001',
+      meetingNumber: 1,
       actionItems: [
         'Review 401(k) allocation by next week',
         'Research tax-advantaged investment options',
@@ -38,7 +42,7 @@ const DiscussionNotes: React.FC = () => {
       id: '2',
       advisor: 'Rajesh Patel',
       date: '2025-04-15',
-      meetingNumber: 'MTG-002',
+      meetingNumber: 2,
       actionItems: [
         'Gather documentation for home office deduction',
         'Consider tax-loss harvesting before year end',
@@ -51,7 +55,7 @@ const DiscussionNotes: React.FC = () => {
       id: '3',
       advisor: 'Aisha Khan',
       date: '2025-04-05',
-      meetingNumber: 'MTG-003',
+      meetingNumber: 3,
       actionItems: [
         'Update beneficiary designations on all accounts',
         'Contact attorney for trust amendment',
@@ -59,6 +63,18 @@ const DiscussionNotes: React.FC = () => {
         'Review life insurance coverage adequacy'
       ],
       discussionSummary: 'Estate planning discussion covering will and trust documents review. Examined succession planning for business assets and family wealth transfer strategies. Discussed recent changes in estate tax laws and their implications. Advisor recommended updates to existing documents and suggested additional protective measures for asset preservation.'
+    },
+    {
+      id: '4',
+      advisor: 'Priya Sharma',
+      date: '2025-03-20',
+      meetingNumber: 4,
+      actionItems: [
+        'Review investment performance quarterly',
+        'Consider rebalancing portfolio',
+        'Research sustainable investment options'
+      ],
+      discussionSummary: 'Follow-up meeting to review progress on previous action items and discuss new investment opportunities.'
     }
   ];
 
@@ -117,33 +133,41 @@ const DiscussionNotes: React.FC = () => {
     setIsSummaryOpen(true);
   };
 
-  const handleEdit = (meeting: Meeting) => {
-    console.log('Edit meeting:', meeting.id);
-  };
-
-  const handleView = (meeting: Meeting) => {
-    console.log('View meeting:', meeting.id);
-  };
-
-  const handleDelete = (meeting: Meeting) => {
-    console.log('Delete meeting:', meeting.id);
-  };
-
   return (
     <div className="space-y-6 w-full">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Discussion Notes</h1>
-        <Button variant="outline">Schedule Meeting</Button>
+        <div className="flex items-center gap-4">
+          <ToggleGroup 
+            type="single" 
+            value={viewMode} 
+            onValueChange={(value) => value && setViewMode(value as 'table' | 'card')}
+            className="border rounded-md"
+          >
+            <ToggleGroupItem value="table" aria-label="Table view">
+              <Table className="h-4 w-4" />
+            </ToggleGroupItem>
+            <ToggleGroupItem value="card" aria-label="Card view">
+              <Grid className="h-4 w-4" />
+            </ToggleGroupItem>
+          </ToggleGroup>
+          <Button variant="outline">Schedule Meeting</Button>
+        </div>
       </div>
       
-      <DataTable
-        data={meetings}
-        columns={columns}
-        onEdit={handleEdit}
-        onView={handleView}
-        onDelete={handleDelete}
-        onStatusChange={() => {}} // Not applicable for this table
-      />
+      {viewMode === 'table' ? (
+        <GenericDataTable
+          data={meetings}
+          columns={columns}
+          showActions={false}
+        />
+      ) : (
+        <DiscussionNotesCard
+          meetings={meetings}
+          onActionItemsClick={handleActionItemsClick}
+          onSummaryClick={handleSummaryClick}
+        />
+      )}
 
       {/* Action Items Dialog */}
       <Dialog open={isActionItemsOpen} onOpenChange={setIsActionItemsOpen}>
