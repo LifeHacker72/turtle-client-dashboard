@@ -29,8 +29,8 @@ const DashboardLayout: React.FC = () => {
         {/* Logo */}
         <div className="p-6 border-b">
           <img 
-            src="/lovable-uploads/92fd3275-10f8-45d0-a84e-3072d46b0893.png" 
-            alt="Logo" 
+            src="/lovable-uploads/a7a21041-659c-469e-a613-92e6fd6b6e7b.png" 
+            alt="Turtle Logo" 
             className="w-full h-auto"
           />
         </div>
