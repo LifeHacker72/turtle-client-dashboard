@@ -49,7 +49,7 @@ const DataTable: React.FC<DataTableProps> = ({
                 {column.header}
               </TableHead>
             ))}
-            <TableHead className="w-[140px]">Actions</TableHead>
+            <TableHead className="w-[120px]">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -76,34 +76,36 @@ const DataTable: React.FC<DataTableProps> = ({
                           : row[column.accessor] as string}
                   </TableCell>
                 ))}
-                <TableCell className="flex justify-end gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0"
-                    onClick={() => onView(row)}
-                  >
-                    <span className="sr-only">View</span>
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0"
-                    onClick={() => onEdit(row)}
-                  >
-                    <span className="sr-only">Edit</span>
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 text-red-500 hover:text-red-600 hover:bg-red-50"
-                    onClick={() => onDelete(row)}
-                  >
-                    <span className="sr-only">Delete</span>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                <TableCell>
+                  <div className="flex gap-1">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 w-7 p-0"
+                      onClick={() => onView(row)}
+                    >
+                      <span className="sr-only">View</span>
+                      <Eye className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 w-7 p-0"
+                      onClick={() => onEdit(row)}
+                    >
+                      <span className="sr-only">Edit</span>
+                      <Edit className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 w-7 p-0 text-red-500 hover:text-red-600 hover:bg-red-50"
+                      onClick={() => onDelete(row)}
+                    >
+                      <span className="sr-only">Delete</span>
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))

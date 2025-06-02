@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from '@/components/ui/input';
-import { Task, TaskStatus, GroupByOption, ViewMode } from '@/types/task';
+import { Task, TaskStatus, ViewMode } from '@/types/task';
 import { useToast } from '@/hooks/use-toast';
 import DataTable from '@/components/DataTable';
 import TaskCard from '@/components/TaskCard';
@@ -114,19 +114,28 @@ const taskData: Task[] = [
   },
 ];
 
+// Predefined advisors list
+const advisorsList = [
+  'Priya Sharma',
+  'Vikram Singh',
+  'Anjali Desai',
+  'Meera Kapoor',
+  'Rajesh Patel',
+  'Aisha Khan'
+];
+
 const PendingItems: React.FC = () => {
   const { toast } = useToast();
   const [tasks, setTasks] = useState<Task[]>(taskData);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState<TaskStatus | 'all'>('all');
-  const [groupBy, setGroupBy] = useState<GroupByOption>('none');
   const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
-  const [filteredOwner, setFilteredOwner] = useState<string | null>(null);
+  const [hideCompleted, setHideCompleted] = useState(false);
 
   // Get counts for each status
   const statusCounts = useMemo(() => {
@@ -134,11 +143,10 @@ const PendingItems: React.FC = () => {
       all: tasks.length,
       pending: tasks.filter(task => task.status === 'pending').length,
       overdue: tasks.filter(task => task.status === 'overdue').length,
-      completed: tasks.filter(task => task.status === 'completed').length,
     };
   }, [tasks]);
 
-  // Filter tasks based on search query, selected status, and filtered owner
+  // Filter tasks based on search query, selected status, and hide completed
   const filteredTasks = useMemo(() => {
     return tasks.filter(task => {
       const matchesSearch = 
@@ -149,38 +157,11 @@ const PendingItems: React.FC = () => {
       
       const matchesStatus = selectedStatus === 'all' || task.status === selectedStatus;
       
-      const matchesOwner = filteredOwner === null || task.owner === filteredOwner;
+      const notCompleted = !hideCompleted || task.status !== 'completed';
       
-      return matchesSearch && matchesStatus && matchesOwner;
+      return matchesSearch && matchesStatus && notCompleted;
     });
-  }, [tasks, searchQuery, selectedStatus, filteredOwner]);
-
-  // Group tasks if grouping is selected
-  const groupedTasks = useMemo(() => {
-    if (groupBy === 'none') {
-      return { 'All Tasks': filteredTasks };
-    }
-
-    const groups: Record<string, Task[]> = {};
-    
-    filteredTasks.forEach(task => {
-      let groupKey = '';
-      
-      if (groupBy === 'dueDate') {
-        groupKey = format(new Date(task.dueDate), 'MMM dd, yyyy');
-      } else if (groupBy === 'owner' || groupBy === 'advisor' || groupBy === 'client') {
-        groupKey = task[groupBy];
-      }
-      
-      if (!groups[groupKey]) {
-        groups[groupKey] = [];
-      }
-      
-      groups[groupKey].push(task);
-    });
-    
-    return groups;
-  }, [filteredTasks, groupBy]);
+  }, [tasks, searchQuery, selectedStatus, hideCompleted]);
 
   const tableColumns = [
     {
@@ -189,20 +170,12 @@ const PendingItems: React.FC = () => {
       width: 'w-[250px]'
     },
     {
-      header: 'Pending with',
-      accessor: 'owner' as keyof Task,
-      render: (value: string) => (
-        <button 
-          onClick={() => handleOwnerFilter(value)}
-          className="text-blue-600 hover:underline focus:outline-none"
-        >
-          {value}
-        </button>
-      )
+      header: 'Advisor',
+      accessor: 'advisor' as keyof Task,
     },
     {
-      header: 'Due Date',
-      accessor: 'dueDate' as keyof Task,
+      header: 'Owner',
+      accessor: 'owner' as keyof Task,
     },
     {
       header: 'Status',
@@ -228,17 +201,6 @@ const PendingItems: React.FC = () => {
     toast({
       title: "Status Updated",
       description: `Task status changed to ${newStatus}`,
-    });
-  };
-
-  const handleOwnerFilter = (owner: string) => {
-    setFilteredOwner(prevOwner => prevOwner === owner ? null : owner);
-    
-    toast({
-      title: filteredOwner === owner ? "Filter Cleared" : "Filter Applied",
-      description: filteredOwner === owner 
-        ? "Showing all tasks" 
-        : `Showing tasks pending with ${owner}`,
     });
   };
 
@@ -289,15 +251,11 @@ const PendingItems: React.FC = () => {
     }
   };
 
-  const clearOwnerFilter = () => {
-    setFilteredOwner(null);
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold">Pending Items</h1>
+          <h1 className="text-2xl font-semibold">Pending Tasks</h1>
           <p className="text-gray-500">Manage and track tasks</p>
         </div>
         <Button onClick={handleOpenCreateDialog}>
@@ -305,17 +263,6 @@ const PendingItems: React.FC = () => {
           Request New Task
         </Button>
       </div>
-      
-      {filteredOwner && (
-        <div className="bg-blue-50 p-3 rounded-md flex items-center justify-between">
-          <span>
-            Filtered by <span className="font-medium">Pending with: {filteredOwner}</span>
-          </span>
-          <Button variant="ghost" size="sm" onClick={clearOwnerFilter}>
-            Clear filter
-          </Button>
-        </div>
-      )}
       
       {/* Status cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -346,7 +293,7 @@ const PendingItems: React.FC = () => {
         >
           <CardContent className="p-4 flex justify-between items-center">
             <div>
-              <p className="text-sm text-gray-500">Overdue</p>
+              <p className="text-sm text-gray-500">Overdue Tasks</p>
               <h3 className="text-2xl font-bold">{statusCounts.overdue}</h3>
             </div>
             <div className="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center">
@@ -358,17 +305,17 @@ const PendingItems: React.FC = () => {
         <Card 
           className={cn(
             "cursor-pointer transition-all",
-            selectedStatus === 'completed' && "border-[#2edebe] ring-2 ring-[#2edebe]/20"
+            selectedStatus === 'pending' && "border-[#2edebe] ring-2 ring-[#2edebe]/20"
           )}
-          onClick={() => setSelectedStatus('completed')}
+          onClick={() => setSelectedStatus('pending')}
         >
           <CardContent className="p-4 flex justify-between items-center">
             <div>
-              <p className="text-sm text-gray-500">Completed</p>
-              <h3 className="text-2xl font-bold">{statusCounts.completed}</h3>
+              <p className="text-sm text-gray-500">Pending Tasks</p>
+              <h3 className="text-2xl font-bold">{statusCounts.pending}</h3>
             </div>
-            <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-              <CheckCircle2 className="h-5 w-5 text-green-500" />
+            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+              <Clock className="h-5 w-5 text-blue-500" />
             </div>
           </CardContent>
         </Card>
@@ -387,17 +334,18 @@ const PendingItems: React.FC = () => {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-2">
-          <Select value={groupBy} onValueChange={(value) => setGroupBy(value as GroupByOption)}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Group by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="none">No Grouping</SelectItem>
-              <SelectItem value="owner">Group by Pending with</SelectItem>
-              <SelectItem value="dueDate">Group by Due Date</SelectItem>
-              <SelectItem value="advisor">Group by Advisor</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              id="hideCompleted"
+              checked={hideCompleted}
+              onChange={(e) => setHideCompleted(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            <label htmlFor="hideCompleted" className="text-sm">
+              Hide Completed Tasks
+            </label>
+          </div>
           
           <div className="flex gap-1 border rounded-md p-1">
             <Button
@@ -423,39 +371,33 @@ const PendingItems: React.FC = () => {
       </div>
       
       {/* Tasks display */}
-      {Object.entries(groupedTasks).map(([groupName, groupTasks]) => (
-        <div key={groupName} className="mt-6">
-          {groupBy !== 'none' && (
-            <h3 className="font-medium text-lg mb-4">{groupName} ({groupTasks.length})</h3>
-          )}
-          
-          {viewMode === 'table' ? (
-            <DataTable
-              data={groupTasks}
-              columns={tableColumns}
-              onStatusChange={handleStatusChange}
-              onEdit={handleOpenEditDialog}
-              onView={handleOpenTaskDialog}
-              onDelete={handleConfirmDelete}
-            />
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {groupTasks.map(task => (
-                <TaskCard
-                  key={task.id}
-                  task={task}
-                  onStatusChange={handleStatusChange}
-                  onEdit={handleOpenEditDialog}
-                  onView={handleOpenTaskDialog}
-                  onDelete={handleConfirmDelete}
-                  hideClient={true}
-                  ownerLabel="Pending with"
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+      <div className="mt-6">
+        {viewMode === 'table' ? (
+          <DataTable
+            data={filteredTasks}
+            columns={tableColumns}
+            onStatusChange={handleStatusChange}
+            onEdit={handleOpenEditDialog}
+            onView={handleOpenTaskDialog}
+            onDelete={handleConfirmDelete}
+          />
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {filteredTasks.map(task => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                onStatusChange={handleStatusChange}
+                onEdit={handleOpenEditDialog}
+                onView={handleOpenTaskDialog}
+                onDelete={handleConfirmDelete}
+                hideClient={true}
+                ownerLabel="Owner"
+              />
+            ))}
+          </div>
+        )}
+      </div>
       
       {/* Task detail dialog */}
       <TaskDialog
@@ -467,7 +409,7 @@ const PendingItems: React.FC = () => {
           setTimeout(() => handleOpenEditDialog(task), 100);
         }}
         hideClient={true}
-        ownerLabel="Pending with"
+        ownerLabel="Owner"
       />
       
       {/* Task form dialog */}
@@ -477,10 +419,12 @@ const PendingItems: React.FC = () => {
         onClose={() => setIsFormDialogOpen(false)}
         onSave={handleSaveTask}
         hideClient={true}
-        hideAdvisor={true}
+        hideAdvisor={false}
         hideOwner={true}
         hidePriority={true}
-        defaultClient="Current Client" // This would come from auth context
+        defaultClient="Current Client"
+        advisorsList={advisorsList}
+        defaultOwner="Turtle Hotline"
       />
       
       {/* Confirm delete dialog */}

@@ -41,6 +41,8 @@ interface TaskFormDialogProps {
   hideOwner?: boolean;
   hidePriority?: boolean;
   defaultClient?: string;
+  advisorsList?: string[];
+  defaultOwner?: string;
 }
 
 const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
@@ -52,7 +54,9 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
   hideAdvisor = false,
   hideOwner = false,
   hidePriority = false,
-  defaultClient = ''
+  defaultClient = '',
+  advisorsList = [],
+  defaultOwner = ''
 }) => {
   const { toast } = useToast();
   const isEditing = !!task;
@@ -63,7 +67,7 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
       task: '',
       client: defaultClient || '',
       advisor: '',
-      owner: '',
+      owner: defaultOwner || '',
       status: 'pending',
       dueDate: format(new Date(), 'yyyy-MM-dd'),
       description: '',
@@ -75,7 +79,9 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
   const onSubmit = (data: Task) => {
     onSave({
       ...data,
-      id: task?.id || String(Date.now())
+      id: task?.id || String(Date.now()),
+      owner: defaultOwner || data.owner,
+      client: defaultClient || data.client
     });
     
     toast({
@@ -90,7 +96,7 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit Task' : 'Create New Task'}</DialogTitle>
+          <DialogTitle>{isEditing ? 'Edit Task' : 'Request New Task'}</DialogTitle>
         </DialogHeader>
         
         <Form {...form}>
@@ -110,22 +116,6 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
             />
             
             <div className="grid grid-cols-2 gap-4">
-              {!hideClient && (
-                <FormField
-                  control={form.control}
-                  name="client"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Client</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Client name" {...field} readOnly={!!defaultClient} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              
               {!hideAdvisor && (
                 <FormField
                   control={form.control}
@@ -133,25 +123,23 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Advisor</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Advisor name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-              
-              {!hideOwner && (
-                <FormField
-                  control={form.control}
-                  name="owner"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Owner</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Task owner" {...field} />
-                      </FormControl>
+                      <Select 
+                        onValueChange={field.onChange} 
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select advisor" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {advisorsList.map((advisor) => (
+                            <SelectItem key={advisor} value={advisor}>
+                              {advisor}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -172,52 +160,26 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
                 )}
               />
               
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <Select 
-                      onValueChange={field.onChange} 
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select status" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="pending">Pending</SelectItem>
-                        <SelectItem value="overdue">Overdue</SelectItem>
-                        <SelectItem value="completed">Completed</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              {!hidePriority && (
+              {isEditing && (
                 <FormField
                   control={form.control}
-                  name="priority"
+                  name="status"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Priority</FormLabel>
+                      <FormLabel>Status</FormLabel>
                       <Select 
                         onValueChange={field.onChange} 
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select priority" />
+                            <SelectValue placeholder="Select status" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="low">Low</SelectItem>
-                          <SelectItem value="medium">Medium</SelectItem>
-                          <SelectItem value="high">High</SelectItem>
+                          <SelectItem value="pending">Pending</SelectItem>
+                          <SelectItem value="overdue">Overdue</SelectItem>
+                          <SelectItem value="completed">Completed</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -226,23 +188,6 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
                 />
               )}
             </div>
-            
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea 
-                      placeholder="Enter task description" 
-                      {...field} 
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             
             <DialogFooter className="pt-4">
               <DialogClose asChild>
