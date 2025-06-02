@@ -51,7 +51,9 @@ const TaskDialog: React.FC<TaskDialogProps> = ({
           
           <div>
             <h4 className="text-sm font-medium text-gray-500 mb-2">Status</h4>
-            <StatusBadge status={task.status} interactive={false} />
+            <div className="w-24">
+              <StatusBadge status={task.status} interactive={false} />
+            </div>
           </div>
           
           <div className="grid grid-cols-2 gap-4">

@@ -179,7 +179,7 @@ const TaskFormDialog: React.FC<TaskFormDialogProps> = ({
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="w-32">
                           <SelectValue placeholder="Select status" />
                         </SelectTrigger>
                       </FormControl>

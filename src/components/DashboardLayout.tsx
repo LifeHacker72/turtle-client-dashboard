@@ -27,7 +27,7 @@ const DashboardLayout: React.FC = () => {
       {/* Sidebar */}
       <div className="w-64 bg-white shadow-lg flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b">
+        <div className="p-6">
           <img 
             src="/lovable-uploads/a7a21041-659c-469e-a613-92e6fd6b6e7b.png" 
             alt="Turtle Logo" 
