@@ -11,6 +11,7 @@ import PendingItems from "./pages/PendingItems";
 import DiscussionNotes from "./pages/DiscussionNotes";
 import MyData from "./pages/MyData";
 import MyMembership from "./pages/MyMembership";
+import InvestmentsForm from "./pages/InvestmentsForm";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="pending-items" element={<PendingItems />} />
             <Route path="discussion-notes" element={<DiscussionNotes />} />
             <Route path="my-data" element={<MyData />} />
+            <Route path="my-data/investments" element={<InvestmentsForm />} />
             <Route path="my-membership" element={<MyMembership />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
